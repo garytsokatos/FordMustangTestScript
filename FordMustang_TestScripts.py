@@ -32,9 +32,14 @@ def Test_C02():
 
         TestModule.powertrain()
 
+def Test_C03():
+
+        TestModule.packages()
+
 Test_A01_A06()
 Test_B01()
 Test_C01()
 Test_C02()
+Test_C03()
 time.sleep(5)
 TestModule.close_browser()
