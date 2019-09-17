@@ -36,10 +36,20 @@ def Test_C03():
 
         TestModule.packages()
 
+def Test_C04():
+
+        TestModule.exterior()
+
+def Test_C05():
+
+        TestModule.interior()
+
 Test_A01_A06()
 Test_B01()
 Test_C01()
 Test_C02()
 Test_C03()
+Test_C04()
+Test_C05()
 time.sleep(5)
 TestModule.close_browser()
