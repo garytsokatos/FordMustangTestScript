@@ -24,7 +24,7 @@ from selenium.webdriver.support import expected_conditions as ec
 import time
 import random
 
-
+#this will iterate through a dictionary by grabbing an xpath and clicking on the button, and it will print out the button that was selected:
 def dictionary_iterater(self, dictionary):
     for el in dictionary:
         button = self.driver.find_element_by_xpath(dictionary[el][0])
@@ -43,7 +43,7 @@ class ItemSelectorClass:
         self.ErrorCount = 0
         self.driver.get("https://www.ford.com/")
         #self.driver.get("https://shop.ford.com/build/mustang/#/config/Config%5B%7CFord%7CMustang%7C2020%7C1%7C1.%7C100A.P8U.....CON.MST.~YZKAA.EBST.LESS.%5D")
-        self.driver.maximize_window()
+        #self.driver.maximize_window()
         self.wait = WebDriverWait(self.driver, 10)
         self.driver.implicitly_wait(5)
         #self.driver.quit()
@@ -115,14 +115,14 @@ class ItemSelectorClass:
 
         print("looking for zip code field")
         time.sleep(2)
-        select_zip_button = self.driver.find_element_by_xpath('/html/body/div[20]/div/div/form/div/div[3]/input')
+        select_zip_button = self.driver.find_element_by_xpath('/html/body/div[21]/div/div/form/div/div[3]/input')
         print("found enter zip field")
         action(self.driver).move_to_element(select_zip_button).click().send_keys('60448').perform()
         print('\tzip code field has been found, selected, and has had a zip code entered')
 
         time.sleep(2)
 
-        enter_zip_button = self.driver.find_element_by_xpath('/html/body/div[20]/div/div/form/div/button')
+        enter_zip_button = self.driver.find_element_by_xpath('/html/body/div[21]/div/div/form/div/button')
         print("found enter")
         action(self.driver).move_to_element(enter_zip_button).click().perform()
         print('\tzip code enter button has been found and selected')
@@ -130,12 +130,12 @@ class ItemSelectorClass:
 
         time.sleep(3)
 
-        '''build_your_own_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[1]/a')
+        build_your_own_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[1]/a')
         print("found bouild your own")
         time.sleep(2)
         action(self.driver).move_to_element(build_your_own_button).click().perform()
         print('\tbuild your own button has been found and selected')
-        print('\t\t***Test A06 has passed***')'''
+        print('\t\t***Test A06 has passed***')
         return
 
 #Setting up the mustang model to be tested, includes which model and which option of performance (Test Case B01)
@@ -391,8 +391,10 @@ class ItemSelectorClass:
         return
 
     def summary(self):
+        time.sleep(1)
         summary_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[6]/div/span/div')
         print("found summary button")
+        time.sleep(1)
         action(self.driver).move_to_element(summary_button).click().perform()
         print("summary button has been selected")
 
@@ -429,9 +431,12 @@ class ItemSelectorClass:
         print("look up trade-in-value button has been selected")
 
     def search_inventory(self):
+        time.sleep(1)
         search_inventory = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[6]/div[3]/div[7]/div[2]/a')
         print("found search inventory")
+        time.sleep(1)
         action(self.driver).move_to_element(search_inventory).click().perform()
+        print("search inventory button has been selected")
 
 #Test Case Category E, make sure to set test case category A in the test script as a precondition
     def let_us_find_it_for_you_select(self):
@@ -447,21 +452,269 @@ class ItemSelectorClass:
             1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Premium Fastback'),
             2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[3]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Convertible'),
             3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[4]/div[1]/div[1]/div[1]/div/span', 'GT Fastback'),
-            4: ('//span[@class="feature-unchecker.icon-unchecker-checkbox", "EcoBoost® Premium Convertible"]', 'EcoBoost® Premium Convertible'),
-            5: ('//span[@class="feature-unchecker.icon-unchecker-checkbox", "GT Premium Fastback"]', 'GT Premium Fastback'),
-            6: ('//span[@class="feature-unchecker.icon-unchecker-checkbox", "GT Premium Convertible"]', 'GT Premium Convertible'),
-            7: ('//span[@class="feature-unchecker.icon-unchecker-checkbox", "BULLITT™"]', 'BULLITT™'),
-            8: ('//span[@class="feature-unchecker.icon-unchecker-checkbox", "Shelby GT350®"]', 'Shelby GT350®'),
-            9: ('//span[@class="feature-unchecker.icon-unchecker-checkbox", "Shelby GT500®"]', 'Shelby GT500®'),
-            10: ('//span[@class="feature-unchecker.icon-unchecker-checkbox", "Shelby® GT350R"]', 'Shelby® GT350R')
+            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[5]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Premium Convertible'),
+            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[5]/div[1]/div[1]/div[1]/div/span', 'GT Premium Fastback'),
+            6: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[7]/div[1]/div[1]/div[1]/div/span', 'GT Premium Convertible'),
+            7: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[8]/div[1]/div[1]/div[1]/div/span', 'BULLITT™'),
+            8: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[9]/div[1]/div[1]/div[1]/div/span', 'Shelby GT350®'),
+            9: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[10]/div[1]/div[1]/div[1]/div/span', 'Shelby GT500®'),
+            10: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[11]/div[1]/div[1]/div[1]/div/span', 'Shelby® GT350R')
         }
         dictionary_iterater(self, your_model_selection)
         print("all models have been selected")
         return
 
+    def let_us_find_it_for_you_exterior_colors(self):
+        exterior_colors_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[2]')
+        print("found exterior colors button")
+        action(self.driver).move_to_element(exterior_colors_button).click().perform()
+        print("exterior colors button has been selected")
 
+        exterior_colors_selection = {
+            0: ("//div[contains(text(), 'Shadow Black')]", 'Shadow Black'),
+            1: ("//div[contains(text(), 'Grabber Lime')]",  'Grabber Lime'),
+            2: ("//div[contains(text(), 'Oxford White')]", 'Oxford White'),
+            3: ("//div[contains(text(), 'Dark Highland Green')]", 'Dark Highland Green'),
+            4: ("//div[contains(text(), 'Velocity Blue')]", 'Velocity Blue'),
+            5: ("//div[contains(text(), 'Iconic Silver')]",  'Iconic Silver'),
+            6: ("//div[contains(text(), 'Magnetic')]",  'Magnetic'),
+            7: ("//div[contains(text(), 'Race Red')]",  'Race Red'),
+            8: ("//div[contains(text(), 'Rapid Red')]",  'Rapid Red'),
+            9: ("//div[contains(text(), 'Ford Performance Blue')]", 'Ford Performance Blue'),
+            10: ("//div[contains(text(), 'Kona Blue')]", 'Kona Blue'),
+            11: ("//div[contains(text(), 'Twister Orange')]", 'Twister Orange'),
+            12: ("//div[contains(text(), 'Shadow Black')]", 'Shadow Black')
+        }
+        dictionary_iterater(self, exterior_colors_selection)
+        return
 
+    def let_us_find_it_for_you_interior_colors(self):
+        interior_colors_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[3]')
+        print("found interior colors button")
+        action(self.driver).move_to_element(interior_colors_button).click().perform()
+        print("interior colors button has been selected")
 
+        interior_colors_selection = {
+            0: ("//div[contains(text(), 'Ebony')]", 'Ebony'),
+            1: ("//div[contains(text(), 'Ceramic')]",  'Ceramic'),
+            2: ("//div[contains(text(), 'Tan')]", 'Tan'),
+            3: ("//div[contains(text(), 'Showstopper Red')]", 'Showstopper Red'),
+            4: ("//div[contains(text(), 'Midnight Blue w/Grabber Blue Stitch')]", 'Midnight Blue w/Grabber Blue Stitch'),
+            5: ("//div[contains(text(), 'Ebony with Green Stitch')]",  'Ebony with Green Stitch'),
+            6: ("//div[contains(text(), 'Ebony w/Smoke Gray Accents')]",  'Ebony w/Smoke Gray Accents'),
+            7: ("//div[contains(text(), 'Ebony w/Red Accents')]",  'Ebony w/Red Accents')
+        }
+        dictionary_iterater(self, interior_colors_selection)
+        return
+
+    def let_us_find_it_for_you_your_preferences(self):
+        your_preferences_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]')
+        print("found your preferences button")
+        action(self.driver).move_to_element(your_preferences_button).click().perform()
+        print("your preferences button has been selected")
+
+        your_preferences_selection = {
+            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[2]/div/div[1]/div[1]/div/span', '2.3L EcoBoost® Engine'),
+            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8 Engine'),
+            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[4]/div/div[1]/div[1]/div/span', '2.3L High Performance EcoBoost® Engine'),
+            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[5]/div/div[1]/div[1]/div/span', '5.2L Ti-VCT V8 with Flat Plane Crank Engine'),
+            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[6]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8 Engine (BULLITT™)'),
+            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[7]/div/div[1]/div[1]/div/span', '5.2L Supercharged Cross Plane Crank V8'),
+            6: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div/span', 'TREMEC 7-Speed Dual Clutch (DCT)'),
+            7: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[3]/div/div[1]/div[1]/div/span', '10-Speed SelectShift® Automatic Transmission'),
+            8: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[4]/div/div[1]/div[1]/div/span', '6-Speed Manual Transmission'),
+            9: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[5]/div/div[1]/div[1]/div/span', '6-Speed Manual Transmission')
+        }
+        dictionary_iterater(self, your_preferences_selection)
+        print("all preferences have been selected")
+        return
+
+    def let_us_find_it_for_you_optional_upgrades(self):
+        optional_upgrades_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]')
+        print("found optional upgrades button")
+        action(self.driver).move_to_element(optional_upgrades_button).click().perform()
+        print("optional upgrades button has been selected")
+
+        optional_upgrades_selection = {
+            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[1]/div[2]/div[1]/div[1]/div/span', 'SYNC® 3'),
+            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[2]/div[2]/div[1]/div[1]/div/span', 'EcoBoost Handling Package'),
+            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[3]/div[2]/div[1]/div[1]/div/span', 'Wheel & Stripe Package'),
+            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[4]/div[2]/div[1]/div[1]/div/span', 'Ford Safe and Smart™ Package'),
+            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[5]/div[2]/div[1]/div[1]/div/span', '2.3L High Performance Package'),
+            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[6]/div[2]/div[1]/div[1]/div/span', 'Black Accent Package')
+        }
+        dictionary_iterater(self, optional_upgrades_selection)
+        print("all optional upgrades have been selected")
+        return
+
+    def _continue_(self):
+        continue_button = self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/div/div/section[2]/div/button')
+        print("found continue button")
+        action(self.driver).move_to_element(continue_button).click().perform()
+        print("continue button has been selected")
+        return
+
+    def change_dealer_mileage(self):
+        change_mileage = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[1]/a/span')
+        print("found dealer mileage drop-down")
+        action(self.driver).move_to_element(change_mileage).click().perform()
+        print("dealer mileage drop-down has been selected")
+
+        _10_miles_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[1]/ul/li[1]/a')
+        print("found 10 miles")
+        action(self.driver).move_to_element(_10_miles_select).click().perform()
+        print("10 miles has been selected")
+        return
+
+    def change_dealer_zipcode(self):
+        change_dealer_x_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[2]/form/div/div/span/a/span')
+        print("found x button in zip field")
+        action(self.driver).move_to_element(change_dealer_x_button).click().perform()
+        print("x button in zip field has been selected")
+
+        enter_zip_code = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[2]/form/div/div/input')
+        print("found zip code field on search inventory page")
+        action(self.driver).move_to_element(enter_zip_code).click().send_keys('60448').perform()
+        print("zip code has been re-entered")
+        return
+
+    def select_from_list_of_dealers(self):
+        currie_motors = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/span/span[1]')
+        print("found currie motors")
+        action(self.driver).move_to_element(currie_motors).click().perform()
+        print("currie motors has been selected")
+
+        joe_rizza = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[2]/span/span[1]')
+        print("found joe rizza")
+        action(self.driver).move_to_element(joe_rizza).click().perform()
+        print("joe rizza has been selected")
+
+        sutton_ford = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        print("found sutton ford")
+        action(self.driver).move_to_element(sutton_ford).click().perform()
+        print("sutton ford has been selected")
+
+        print("all dealers have been selected")
+        return
+
+    def body_style(self):
+        unselect_convertible = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        print("found convertible")
+        action(self.driver).move_to_element(unselect_convertible).click().perform()
+        print("convertible has been unselected")
+
+        select_convertible = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        print("found convertible")
+        action(self.driver).move_to_element(select_convertible).click().perform()
+        print("convertible has been selected")
+
+        select_coupe_fastback = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        print("found couple/fastback")
+        action(self.driver).move_to_element(select_coupe_fastback).click().perform()
+        print("couple/fastback has been selected")
+
+        print("all body styles have been selected")
+        return
+
+    def select_model(self):
+        time.sleep(5)
+
+        unselect_ecoboost = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/span/span[1]')
+        print("found ecoboost")
+        action(self.driver).move_to_element(unselect_ecoboost).click().perform()
+        print("ecoboost has been unselected")
+
+        select_ecoboost = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/span/span[1]')
+        print("found ecoboost")
+        action(self.driver).move_to_element(select_ecoboost).click().perform()
+        print("ecoboost has been selected")
+
+        time.sleep(10)
+
+        select_ecoboost_100A = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/ul/li[1]/span[1]/span[1]')
+        print("found ecoboost 100a")
+        action(self.driver).move_to_element(select_ecoboost_100A).click().perform()
+        print("ecoboost 100a has been selected")
+
+        time.sleep(5)
+
+        select_ecoboost_101A = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/ul/li[2]/span[1]/span[1]')
+        print("found ecoboost 101a")
+        action(self.driver).move_to_element(select_ecoboost_101A).click().perform()
+        print("ecoboost 101a has been selected")
+
+        time.sleep(5)
+
+        select_ecoboost_premium = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[2]/span/span[1]')
+        print("found ecoboost premium")
+        action(self.driver).move_to_element(select_ecoboost_premium).click().perform()
+        print("ecoboost premium has been selected")
+
+        time.sleep(5)
+
+        select_gt = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        print("found GT")
+        action(self.driver).move_to_element(select_gt).click().perform()
+        print("GT has been selected")
+
+        time.sleep(5)
+
+        select_gt_premium = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[4]/span/span[1]')
+        print("found GT premium")
+        action(self.driver).move_to_element(select_gt_premium).click().perform()
+        print("GT premium has been selected")
+
+        time.sleep(5)
+
+        select_bullitt = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[5]/span/span[1]')
+        print("found bullitt")
+        action(self.driver).move_to_element(select_bullitt).click().perform()
+        print("bullitt has been selected")
+
+        time.sleep(5)
+
+        select_shelby_gt350 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[6]/span/span[1]')
+        print("found shelby gt350")
+        action(self.driver).move_to_element(select_shelby_gt350).click().perform()
+        print("shelby gt350 has been selected")
+
+        time.sleep(5)
+
+        select_shelby_gt500 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[7]/span/span[1]')
+        print("found shelby gt500")
+        action(self.driver).move_to_element(select_shelby_gt500).click().perform()
+        print("shelby gt500 has been selected")
+
+        time.sleep(5)
+
+        select_shelby_gt350r = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[8]/span/span[1]')
+        print("found shelby gt350r")
+        action(self.driver).move_to_element(select_shelby_gt350r).click().perform()
+        print("shelby gt350r has been selected")
+
+        print("all models have been selected")
+        return
+
+    def year(self):
+        select_2019 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[3]/ul/li[1]/span/span[1]')
+        print("found 2019")
+        action(self.driver).move_to_element(select_2019).click().perform()
+        print("2019 has been selected")
+
+        time.sleep(5)
+
+        unselect_2020 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[3]/ul/li[2]/span/span[1]')
+        print("found 2020")
+        action(self.driver).move_to_element(unselect_2020).click().perform()
+        print("2020 has been unselected")
+
+        select_2020 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[3]/ul/li[2]/span/span[1]')
+        print("found 2020")
+        action(self.driver).move_to_element(select_2020).click().perform()
+        print("2020 has been selected")
+
+        print("all years have been selected")
+        return
 
 '''define ItemSelection SELECT method(self, index): < index arg lets you select a choice from outside the class
         try:
