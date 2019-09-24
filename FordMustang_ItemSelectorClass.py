@@ -17,9 +17,10 @@ The methods are organized into how (I feel) they should be designed based on the
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains as action
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
+
 
 import time
 import random
@@ -44,7 +45,7 @@ class ItemSelectorClass:
         self.driver.get("https://www.ford.com/")
         #self.driver.get("https://shop.ford.com/build/mustang/#/config/Config%5B%7CFord%7CMustang%7C2020%7C1%7C1.%7C100A.P8U.....CON.MST.~YZKAA.EBST.LESS.%5D")
         #self.driver.maximize_window()
-        self.wait = WebDriverWait(self.driver, 10)
+        #self.wait = WebDriverWait(self.driver, 10)
         self.driver.implicitly_wait(5)
         #self.driver.quit()
 
@@ -83,7 +84,8 @@ class ItemSelectorClass:
     def get_to_car_build(self):
         vehicles_home_page_button = self.driver.find_element_by_class_name('dropdown.dropdown-item')
         print("found vehicles")
-        action(self.driver).move_to_element(vehicles_home_page_button).click().perform()
+        #action(self.driver).move_to_element(vehicles_home_page_button).click().perform()
+        vehicles_home_page_button.click()
         print('\tvehicles button on home page has been found and selected')
         print('\t\t***Test A01 has passed***')
 
@@ -91,7 +93,8 @@ class ItemSelectorClass:
 
         cars_home_page_button = self.driver.find_element_by_xpath('/html/body/header/div[5]/nav/div[2]/div[2]/ul[1]/li[1]/div/nav/div/ul/li[3]/a')
         print("found cars")
-        action(self.driver).move_to_element(cars_home_page_button).click().perform()
+        #action(self.driver).move_to_element(cars_home_page_button).click().perform()
+        cars_home_page_button.click()
         print('\tcars button on home page has been found and selected')
         print('\t\t***Test A02 has passed***')
 
@@ -99,7 +102,8 @@ class ItemSelectorClass:
 
         mustang_button_2020 = self.driver.find_element_by_xpath('//*[@id="fgx-mainNavigation-tertiary_menu_2"]/li[3]/a/div/div[2]/span')
         print("found 2020 mustang")
-        action(self.driver).move_to_element(mustang_button_2020).click().perform()
+        #action(self.driver).move_to_element(mustang_button_2020).click().perform()
+        mustang_button_2020.click()
         print('\t2020 mustang button on home page has been found and selected')
         print('\t\t***Test A03 has passed***')
 
@@ -548,6 +552,7 @@ class ItemSelectorClass:
         return
 
     def _continue_(self):
+        time.sleep(2)
         continue_button = self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/div/div/section[2]/div/button')
         print("found continue button")
         action(self.driver).move_to_element(continue_button).click().perform()
@@ -560,6 +565,7 @@ class ItemSelectorClass:
         action(self.driver).move_to_element(change_mileage).click().perform()
         print("dealer mileage drop-down has been selected")
 
+#TODO pick a random mile radius
         _10_miles_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[1]/ul/li[1]/a')
         print("found 10 miles")
         action(self.driver).move_to_element(_10_miles_select).click().perform()
@@ -598,7 +604,8 @@ class ItemSelectorClass:
         return
 
     def body_style(self):
-        unselect_convertible = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        #unselect_convertible = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        unselect_convertible = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'checkbox-bodyStyle-0')))
         print("found convertible")
         action(self.driver).move_to_element(unselect_convertible).click().perform()
         print("convertible has been unselected")
@@ -610,7 +617,9 @@ class ItemSelectorClass:
 
         select_coupe_fastback = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
         print("found couple/fastback")
-        action(self.driver).move_to_element(select_coupe_fastback).click().perform()
+        time.sleep(3)
+        #action(self.driver).move_to_element(select_coupe_fastback).click().perform()
+        select_coupe_fastback.click()
         print("couple/fastback has been selected")
 
         print("all body styles have been selected")
@@ -624,9 +633,10 @@ class ItemSelectorClass:
         action(self.driver).move_to_element(unselect_ecoboost).click().perform()
         print("ecoboost has been unselected")
 
-        select_ecoboost = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/span/span[1]')
+        select_ecoboost = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'checkbox-modeltrim-0')))
         print("found ecoboost")
-        action(self.driver).move_to_element(select_ecoboost).click().perform()
+        time.sleep(3)
+        select_ecoboost.click()
         print("ecoboost has been selected")
 
         time.sleep(10)
