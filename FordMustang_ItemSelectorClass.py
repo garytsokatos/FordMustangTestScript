@@ -38,7 +38,7 @@ class ItemSelectorClass:
 
     def __init__(self):
         self.chrome_options = webdriver.ChromeOptions()
-        self.chrome_options.add_argument('-icognito')
+        self.chrome_options.add_argument('-incognito')
         self.driver = webdriver.Chrome(r"C:\drivers\chromedriver.exe", options=self.chrome_options)
         self.CurrentModule = "Initialization"
         self.ErrorCount = 0
@@ -89,72 +89,73 @@ class ItemSelectorClass:
         print('\tvehicles button on home page has been found and selected')
         print('\t\t***Test A01 has passed***')
 
-        time.sleep(3)
+        #time.sleep(3)
 
-        cars_home_page_button = self.driver.find_element_by_xpath('/html/body/header/div[5]/nav/div[2]/div[2]/ul[1]/li[1]/div/nav/div/ul/li[3]/a')
+        cars_home_page_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Cars']")))
         print("found cars")
         #action(self.driver).move_to_element(cars_home_page_button).click().perform()
         cars_home_page_button.click()
         print('\tcars button on home page has been found and selected')
         print('\t\t***Test A02 has passed***')
 
-        time.sleep(3)
+        #time.sleep(3)
 
-        mustang_button_2020 = self.driver.find_element_by_xpath('//*[@id="fgx-mainNavigation-tertiary_menu_2"]/li[3]/a/div/div[2]/span')
+
+        mustang_button_2020 = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "2020 Mustang")]')))
         print("found 2020 mustang")
         #action(self.driver).move_to_element(mustang_button_2020).click().perform()
         mustang_button_2020.click()
         print('\t2020 mustang button on home page has been found and selected')
         print('\t\t***Test A03 has passed***')
 
-        time.sleep(3)
+        #time.sleep(3)
 
-        build_and_price_button = self.driver.find_element_by_xpath('//*[@id="component01"]/div/div/div/div/div[1]/div[2]/div/div[2]/div/div[2]/p/a')
+        build_and_price_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Press here for information on 2020 Ford Mustang Build and Price']")))
         print("found build & price")
-        action(self.driver).move_to_element(build_and_price_button).click().perform()
+        build_and_price_button.click()
         print('\tbuild & price button on home page has been found and selected')
         print('\t\t***Test A04 has passed***')
 
-        time.sleep(3)
+        #time.sleep(3)
 
         print("looking for zip code field")
-        time.sleep(2)
-        select_zip_button = self.driver.find_element_by_xpath('/html/body/div[21]/div/div/form/div/div[3]/input')
+        #time.sleep(2)
+        select_zip_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'postal-input')))
         print("found enter zip field")
         action(self.driver).move_to_element(select_zip_button).click().send_keys('60448').perform()
         print('\tzip code field has been found, selected, and has had a zip code entered')
 
-        time.sleep(2)
+        #time.sleep(2)
 
-        enter_zip_button = self.driver.find_element_by_xpath('/html/body/div[21]/div/div/form/div/button')
+        enter_zip_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Enter")]')))
         print("found enter")
         action(self.driver).move_to_element(enter_zip_button).click().perform()
         print('\tzip code enter button has been found and selected')
         print('\t\t***Test A05 has passed***')
 
-        time.sleep(3)
+        #time.sleep(3)
 
-        build_your_own_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[1]/a')
-        print("found bouild your own")
-        time.sleep(2)
-        action(self.driver).move_to_element(build_your_own_button).click().perform()
+        build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
+        print("found build your own")
+        #time.sleep(2)
+        build_your_own_button.click()
         print('\tbuild your own button has been found and selected')
         print('\t\t***Test A06 has passed***')
         return
 
 #Setting up the mustang model to be tested, includes which model and which option of performance (Test Case B01)
     def choose_your_model_convertible(self):
-        time.sleep(2)
-        convertible_button = self.driver.find_element_by_xpath('//*[@id="tech-list-price-ecoboostconvertible"]')
+        #time.sleep(2)
+        convertible_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, "tech-list-price-ecoboostconvertible")))
         print("found convertible")
-        action(self.driver).move_to_element(convertible_button).click().perform()
+        convertible_button.click()
         print('\tconvertible button has been found and selected')
 
         time.sleep(2)
 
-        convertible_image = self.driver.find_element_by_xpath('//*[@id="main-container"]/div/div/div[2]/div/div[2]/div[2]/div[3]/span/img')
+        convertible_image = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//img[@src='//build.ford.com/dig/Ford/Mustang/2020/HD-TILE/Image[|Ford|Mustang|2020|1|1.|100A.P8U..PQ..882.~VIRTUALPKGPART_D5HAB_6.~VIRTUALPKGPART_HNAAJ_7.LTS.CON.~VIRTUALPKGPART_AACAA_16.~VIRTUALPKGPART_AB2AA_18.~VIRTUALPKGPART_D17AA_21.~VIRTUALPKGPART_D2YFY_22.SYN.86C.453.64A.43S.MST.891.ANT.LRS.CLO.99H.RWD.44X.EBST.TDP.LESS.12A.13D.14L.14A.58A.2020 P8U FORD.]/EXT/1/vehicle.png']")))
         print("found configure")
-        action(self.driver).move_to_element(convertible_image).click().perform()
+        convertible_image.click()
         print('\tconfigure button has been found and selected')
         print('\t\t***Test B01 has passed***')
         return
