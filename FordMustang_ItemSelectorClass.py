@@ -177,7 +177,7 @@ class ItemSelectorClass:
         dictionary_iterater(self, paint_selection)
         return
 
-    # Selecting all possible tape stripe options in the paint type category (Test Case C01)
+#Selecting all possible tape stripe options in the paint type category (Test Case C01)
     def tape_stripe(self):
         tape_stripe_selection = {
             0: ("//div[contains(text(), 'Silver Tape Stripe')]", 'Silver Tape Stripe'),
@@ -189,7 +189,7 @@ class ItemSelectorClass:
         print("\t\tall tape stripes have been selected")
         return
 
-    # Selecting all possible racing stripe options in the paint type category (Test Case C01)
+#Selecting all possible racing stripe options in the paint type category (Test Case C01)
     def racing_stripe(self):
         racing_stripe_selection = {
             0:  ("//div[contains(text(), 'Ebony Racing Stripe')]", 'Ebony Tape Stripe'),
@@ -200,7 +200,7 @@ class ItemSelectorClass:
         print("\t\tall racing stripes have been selected")
         return
 
-    # Selecting all possible paint options in the paint type category (Test Case C01)
+#Selecting all possible paint options in the paint type category (Test Case C01)
     def hood_and_side_stripes(self):
         hood_side_stripe_selection = {
             0:  ("//div[contains(text(), 'Metallic Gray Hood Stripe')]", 'Metallic Gray Hood Stripe'),
@@ -213,7 +213,7 @@ class ItemSelectorClass:
         print("\t\t\t***Test Case C01 has passed***")
         return
 
-    # Selecting all possible engine and transmission options in the powertrain category (Test Case C02)
+#Selecting all powertrain drop-down arrow to open the powertrain category (Test Case C02)
     def powertrain(self):
         powertrain_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[2]/div[1]/div/div/span[3]')
         action(self.driver).move_to_element(powertrain_select).click().perform()
@@ -222,6 +222,7 @@ class ItemSelectorClass:
         time.sleep(2)
         return
 
+#Selecting all possible engine options in the powertrain category (Test Case C02)
     def engine(self):
         engine_selection = {
             0:  ("//span[contains(text(), '2.3L High Performance EcoBoost® Engine')]", '2.3L High Performance EcoBoost® Engine'),
@@ -230,6 +231,7 @@ class ItemSelectorClass:
         dictionary_iterater(self, engine_selection)
         return
 
+#Selecting all possible transmission options in the powertrain category (Test Case C02)
     def transmissions(self):
         transmissions_selection = {
             0: ("//span[contains(text(), '10-Speed SelectShift® Automatic Transmission')]", '10-Speed SelectShift® Automatic Transmission'),
@@ -241,13 +243,14 @@ class ItemSelectorClass:
         print("\t\t***Test Case C02 has paseed***")
         return
 
-    # Selecting all possible equipment group, exterior, and interior package options in the packages category (Test Case C03)
+#Selecting the packages drop-down arrow to open the packages category (Test Case C03)
     def packages(self):
         packages_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[3]/div[1]/div/div')
         action(self.driver).move_to_element(packages_select).click().perform()
         print("packages drop-down has been selected")
         return
 
+#Selecting all possible equipment group options in the packages category (Test Case C03)
     def equipment_group(self):
         equipment_group_selection = {
             0: ("//span[contains(text(), '101A Equipment Group')]", '101A Equipment Group'),
@@ -256,6 +259,7 @@ class ItemSelectorClass:
         dictionary_iterater(self, equipment_group_selection)
         return
 
+#Selecting all possible exterior package options in the packages category (Test Case C03)
     def exterior_package(self):
         exterior_packasge_selection = {
             0: ("//span[contains(text(), 'Black Accent Package')]", '101A Equipment Group'),
@@ -265,6 +269,7 @@ class ItemSelectorClass:
         dictionary_iterater(self, exterior_packasge_selection)
         return
 
+#Selecting all possible interior package options in the packages category (Test Case C03)
     def interior_package(self):
         ford_safe_and_smart_package = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[3]/div[2]/div[3]/ul/li/div[1]/div[2]/img')
         action(self.driver).move_to_element(ford_safe_and_smart_package).click().perform()
@@ -278,7 +283,7 @@ class ItemSelectorClass:
         return
 
 
-    # Selecting all possible wheel type, exterior options, tire type, and rear axle options in the exterior category (Test Case C04)
+#Selecting exterior drop-down arrow to open the exterior category (Test Case C04)
     def exterior(self):
         exterior_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[4]/div[1]/div/div/span[3]')
         print("found exterior select")
@@ -286,6 +291,7 @@ class ItemSelectorClass:
         print("exterior drop-down has been selected")
         return
 
+#Selecting all possible wheel type options in the exterior category (Test Case C04)
     def wheel_type(self):
         wheel_type_selection = {
             0: ("//span[contains(text(), '18-Inch Machined-Face Aluminum Wheels with High-Gloss Ebony Black-Painted Pockets')]", '18-Inch Machined-Face Aluminum Wheels with High-Gloss Ebony Black-Painted Pockets'),
@@ -302,6 +308,7 @@ class ItemSelectorClass:
         print("\tall wheel types have been selected")
         return
 
+#Selecting all possible exterior options options in the exterior category (Test Case C04)
     def exterior_options(self):
         exterior_options_selection = {
             0: ("//span[contains(text(), 'Active Valve Performance Exhaust')]", 'Active Valve Performance Exhaust'),
@@ -317,6 +324,7 @@ class ItemSelectorClass:
 
         return
 
+#Selecting all possible tire type options in the exterior category (Test Case C04)
     def tire_type(self):
         tire_type_selection = {
             0: ("//span[contains(text(), '235/55R17 BSW All-Season (A/S) Tires')]", '235/55R17 BSW All-Season (A/S) Tires'),
@@ -328,6 +336,7 @@ class ItemSelectorClass:
         print("\tall tire types have been selected")
         return
 
+#Selecting all possible rear axle options in the exterior category (Test Case C04)
     def rear_axle_ratios(self):
         rear_axle_selection = {
             0: ("//span[contains(text(), '3.15 Limited Slip Rear Axle')]", '3.15 Limited Slip Rear Axle'),
@@ -340,6 +349,7 @@ class ItemSelectorClass:
         print("\t\t***Test Case C04 has passed***")
         return
 
+#Selecting exterior drop-down arrow to open the interior category (Test Case C05)
     def interior(self):
         interior_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[5]/div[1]/div/div')
         print("found interior select")
@@ -347,6 +357,7 @@ class ItemSelectorClass:
         print("interior drop-down has been selected")
         return
 
+#Selecting all possible cloth options in the interior category (Test Case C05)
     def cloth(self):
         ceramic = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[5]/div[2]/div[1]/div[2]/div/div[2]/div[1]/ul/li[2]/div/div[1]/img')
         print("found ceramic cloth")
@@ -361,6 +372,7 @@ class ItemSelectorClass:
 
     #def seat_type(self):
 
+#Selecting all possible interior options options in the interior category (Test Case C05)
     def interior_options(self):
         rear_axle_selection = {
             0: ("//span[contains(text(), '\"Silver Arrow\" Aluminum Instrument Panel Finish')]", '\"Silver Arrow\" Aluminum Instrument Panel Finish'),
@@ -372,6 +384,7 @@ class ItemSelectorClass:
         print("\tall interior options have been selected")
         return
 
+#Selecting all possible radio type options options in the interior category (Test Case C05)
     def radio_type(self):
         radio_selection = {
             0: ("//span[contains(text(), 'AM/FM Stereo with MP3 Capability and Six (6) Speakers')]", 'AM/FM Stereo with MP3 Capability and Six (6) Speakers'),
@@ -381,6 +394,7 @@ class ItemSelectorClass:
         print("\tall radio types have been selected")
         return
 
+    # Selecting all possible audio upgrade options options in the interior category (Test Case C05)
     def audio_upgrade(self):
         audio_upgrade_selection = {
             0: ("//span[contains(text(), 'SiriusXM® Radio')]", 'SiriusXM® Radio'),
@@ -394,19 +408,21 @@ class ItemSelectorClass:
         print("\t\t\t***Test Case C05 has passed***")
         return
 
+#Selecting the Summary button after Test Cases C01 - C05 have been completed
     def summary(self):
         time.sleep(1)
-        summary_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[6]/div/span/div')
+        summary_button = self.driver.find_element_by_class_name('summary-modal-close ng-scope ng-isolate-scope')
         print("found summary button")
         time.sleep(1)
         action(self.driver).move_to_element(summary_button).click().perform()
         print("summary button has been selected")
 
-        #summary_close = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[1]')
-        #print("found close button")
-        #action(self.driver).move_to_element(summary_close).click().perform()
-        #print("close button has been selected")
+        '''summary_close = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[1]')
+        print("found close button")
+        action(self.driver).move_to_element(summary_close).click().perform()
+        print("close button has been selected")'''
 
+#Selecting and closing out of 'Speacial Offers' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def special_offers(self):
         special_offers = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[6]/div[3]/div[7]/div[3]/a')
         print("found special offers")
@@ -421,6 +437,7 @@ class ItemSelectorClass:
         action(self.driver).move_to_element(special_offers_close).click().perform()
         print("special offers close button has been selected")
 
+#Selecting and closing out of 'Look Up Trade-In-Value' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def trade_in_value(self):
         look_up_trade_in_value = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[6]/div[3]/div[7]/div[4]/a')
         print("found look up trade-in-value")
@@ -434,6 +451,7 @@ class ItemSelectorClass:
         action(self.driver).move_to_element(look_up_trade_in_value_close).click().perform()
         print("look up trade-in-value button has been selected")
 
+#Selecting 'Search Inventory' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def search_inventory(self):
         time.sleep(1)
         search_inventory = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[6]/div[3]/div[7]/div[2]/a')
@@ -442,7 +460,7 @@ class ItemSelectorClass:
         action(self.driver).move_to_element(search_inventory).click().perform()
         print("search inventory button has been selected")
 
-#Test Case Category E, make sure to set test case category A in the test script as a precondition
+#Test Case Category E, make sure to set test case category A in the test script as a precondition (TC D01.1) after Test Cases C01 - C05 have been completed
     def let_us_find_it_for_you_select(self):
         let_us_find_it_for_you_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[2]/a/div/img')
         print("found let us find it for you button")
@@ -450,6 +468,7 @@ class ItemSelectorClass:
         print("let us find it for you button has been selected")
 
 #TODO clean up full xpath
+#This is a list of all of the possible 2020 Mustang models. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_your_model(self):
         your_model_selection = {
             0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[1]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Fastback'),
@@ -468,6 +487,7 @@ class ItemSelectorClass:
         print("all models have been selected")
         return
 
+#This is a list of all of the possible exterior colors for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_exterior_colors(self):
         exterior_colors_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[2]')
         print("found exterior colors button")
@@ -492,6 +512,7 @@ class ItemSelectorClass:
         dictionary_iterater(self, exterior_colors_selection)
         return
 
+#This is a list of all of the possible interior colors for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_interior_colors(self):
         interior_colors_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[3]')
         print("found interior colors button")
@@ -511,6 +532,7 @@ class ItemSelectorClass:
         dictionary_iterater(self, interior_colors_selection)
         return
 
+#This is a list of all of the possible preferences for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_your_preferences(self):
         your_preferences_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]')
         print("found your preferences button")
@@ -533,6 +555,7 @@ class ItemSelectorClass:
         print("all preferences have been selected")
         return
 
+#This is a list of all of the possible optional upgrades for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_optional_upgrades(self):
         optional_upgrades_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]')
         print("found optional upgrades button")
@@ -551,6 +574,7 @@ class ItemSelectorClass:
         print("all optional upgrades have been selected")
         return
 
+#This is selecting the continue button (TC F01), done after Test Case D01, to begin the Search Inventory functionality
     def _continue_(self):
         time.sleep(2)
         continue_button = self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/div/div/section[2]/div/button')
@@ -559,6 +583,7 @@ class ItemSelectorClass:
         print("continue button has been selected")
         return
 
+#Upon entering a distance, ford will return a list of dealers within the designated mile radius the user selects
     def change_dealer_mileage(self):
         change_mileage = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[1]/a/span')
         print("found dealer mileage drop-down")
@@ -566,12 +591,14 @@ class ItemSelectorClass:
         print("dealer mileage drop-down has been selected")
 
 #TODO pick a random mile radius
+#This is selecting the 10 mile radius option
         _10_miles_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[1]/ul/li[1]/a')
         print("found 10 miles")
         action(self.driver).move_to_element(_10_miles_select).click().perform()
         print("10 miles has been selected")
         return
 
+#Upon entering a zip code, ford will return the dealers in the area, depending on what was selected for the dealer mileage distance (TC F02)
     def change_dealer_zipcode(self):
         change_dealer_x_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[2]/form/div/div/span/a/span')
         print("found x button in zip field")
@@ -584,6 +611,7 @@ class ItemSelectorClass:
         print("zip code has been re-entered")
         return
 
+#This is the list of dealers that have been returned after entering a mileage and zip code (TC F02)
     def select_from_list_of_dealers(self):
         currie_motors = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/span/span[1]')
         print("found currie motors")
@@ -603,6 +631,7 @@ class ItemSelectorClass:
         print("all dealers have been selected")
         return
 
+#This is a hard coded list of all of the possible body styles for the mustang. Program should procedurally go through and select all of the options in the list (TC F02)
     def body_style(self):
         #unselect_convertible = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
         unselect_convertible = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'checkbox-bodyStyle-0')))
@@ -625,6 +654,7 @@ class ItemSelectorClass:
         print("all body styles have been selected")
         return
 
+#This is a hard coded list of all of the possible models for the mustang. Program should procedurally go through and select all of the options in the list (TC F02)
     def select_model(self):
         time.sleep(5)
 
@@ -705,6 +735,7 @@ class ItemSelectorClass:
         print("all models have been selected")
         return
 
+#This is a hard coded list of all of the possible model years for the mustang. Program should procedurally go through and select all of the options in the list (TC F02)
     def year(self):
         select_2019 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[3]/ul/li[1]/span/span[1]')
         print("found 2019")
@@ -725,6 +756,145 @@ class ItemSelectorClass:
 
         print("all years have been selected")
         return
+
+#This is a list of all of the possible power and handling optoins for the mustang. Program should loop through and select all of the options in the list (TC F03)
+    def power_and_handling(self):
+        power_and_handling_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[4]/div/div/div/div[1]/span[1]')
+        print("found power and handling drop-down")
+        action(self.driver).move_to_element(power_and_handling_select).click().perform()
+        print("power and handling drop-down has been selected")
+
+        power_and_handling_select = {
+            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[2]/div/div[1]/div[1]/div/span', '2.3L EcoBoost'),
+            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8'),
+            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[4]/div/div[1]/div[1]/div/span', '5.0Litre Ti-VCT V8'),
+            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[5]/div/div[1]/div[1]/div/span', '5.2L Ti-VCT V8'),
+            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[6]/div/div[1]/div[1]/div/span', '2.3L High Performance Eco Boost'),
+            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[7]/div/div[1]/div[1]/div/span', '5.2L Supercharged Cross Plane Crank V8'),
+            6: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div/span', 'SelectShift Automatic'),
+            7: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[3]/div/div[1]/div[1]/div/span', 'Manual'),
+            8: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[4]/div/div[1]/div[1]/div/span', 'Rear-Wheel Drive')
+        }
+        dictionary_iterater(self, power_and_handling_select)
+        print("all power and handling selections have been selected")
+        return
+
+#This is a list of all of the possible exterior colors for the mustang. Program should loop through and select all of the options in the list (TC F04)
+    def exterior_color(self):
+        exterior_color_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[1]')
+        print("found exterior color drop-down")
+        action(self.driver).move_to_element(exterior_color_select).click().perform()
+        print("exterior color drop-down has been selected")
+
+        exterior_color_selection = {
+            0: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[1]/div/div', 'Dark Highland Green'),
+            1: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[2]/div/div', 'Grabber Lime'),
+            2: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[3]/div/div', 'Iconic Silver'),
+            3: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[4]/div/div', 'Ingot Silver'),
+            4: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[5]/div/div', 'Kona Blue'),
+            5: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[6]/div/div', 'Magnetic'),
+            6: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[7]/div/div', 'Need for Green'),
+            7: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[8]/div/div', 'Orange Fury'),
+            8: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[9]/div/div]', 'Oxford White'),
+            9: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[10]/div/div', 'Ford Performance Blue'),
+            10: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[11]/div/div', 'Race Red'),
+            11: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[12]/div/div', 'Rapid Red'),
+            12: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[13]/div/div', 'Ruby Red'),
+            13: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[13]/div/div', 'Shadow BLack'),
+            14: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[15]/div/div', 'Twister Orange'),
+            15: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[16]/div/div', 'Velocity Blue')
+        }
+        dictionary_iterater(self, exterior_color_selection)
+        print("all exterior color selections have been selected")
+        return
+
+#This is a list of all of the possible interior colors for the mustang. Program should loop through and select all of the options in the list (TC F05)
+    def interior_color(self):
+        interior_color_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[1]')
+        print("found interior color drop-down")
+        action(self.driver).move_to_element(interior_color_select).click().perform()
+        print("interior color drop-down has been selected")
+
+        interior_color_selection = {
+            0: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[1]/ul/li[1]/div/div/img', 'Cloth - Ceramic'),
+            1: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[1]/ul/li[2]/div/div/img', 'Cloth - Ebony'),
+            2: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[1]/div/div/img', 'Leather - Ceramic'),
+            3: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[2]/div/div/img', 'Leather - Ebony'),
+            4: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[3]/div/div/img', 'Leather - Ebony with Green Stitch'),
+            5: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[4]/div/div/img', 'Leather - Tan'),
+            6: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[3]/ul/li/div/div/img', 'Leather with Alcantra Inserts - Ebony'),
+            7: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[4]/ul/li[1]/div/div/img', 'Leather with Miko Inserts - Ebony'),
+            8: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[4]/ul/li[2]/div/div/img', 'Leather with Miko Inserts - Ebony with Red Stitch'),
+            9: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[4]/ul/li[3]/div/div/img', 'Leather with Miko Inserts - Ebony/Smoke Gray Stitch'),
+            10: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[5]/ul/li[1]/div/div/img', 'Premier Leather - Ebony'),
+            11: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[5]/ul/li[2]/div/div/img', 'Premier Leather - Midnight Blue with Grabber Blue Stitch'),
+            12: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[5]/ul/li[3]/div/div/img', 'Premier Leather - Showstopper Red'),
+            13: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[6]/ul/li/div/div/img', 'RECARO Cloth - Ebony'),
+            14: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[7]/ul/li[1]/div/div/img', 'RECARO Cloth with Miko Inserts - Ebony'),
+            15: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[7]/ul/li[2]/div/div/img', 'RECARO Cloth with Miko Inserts - Ebony with Red Accents'),
+            16: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[8]/ul/li[1]/div/div/img', 'RECARO Leather - Ebony'),
+            17: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[8]/ul/li[2]/div/div/img', 'RECARO Leather - Ebony with Green Stitch'),
+            18: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[8]/ul/li[3]/div/div/img', 'RECARO Leather - Ebony/Smoke Gray Accents'),
+            19: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[9]/ul/li[1]/div/div/img', 'RECARO Premier Leather - Ebony'),
+            20: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[9]/ul/li[2]/div/div/img',  'RECARO Premier Leather - Midnight Blue with Grabber Blue Stitch'),
+            21: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[9]/ul/li[3]/div/div/img', 'RECARO Premier Leather - Showstopper Red')
+        }
+        dictionary_iterater(self, interior_color_selection)
+        print("all interior color selections have been selected")
+        return
+
+#This is a list of all of the possible exterior features for the mustang. Program should loop through and select all of the options in the list (TC F06)
+    def exterior_features(self):
+        exterior_features_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[1]')
+        print("found exterior features drop-down")
+        action(self.driver).move_to_element(exterior_features_select).click().perform()
+        print("exterior features drop-down has been selected")
+
+        exterior_features_selection = {
+            0: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[1]/span/span[1]', '17" Wheels'),
+            1: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[2]/span/span[1]', '18" Wheels'),
+            2: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[3]/span/span[1]', '19" Wheels'),
+            3: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[3]/span/span[1]', '19.5" Wheels'),
+            4: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[5]/span/span[1]', '20" Wheels'),
+        }
+        dictionary_iterater(self, exterior_features_selection)
+        print("all exterior features selections have been selected")
+        return
+ #Selecting the "Let Us Find Your Vehicle" button at the bottom of the Search Inventory Page (TC F07)
+    def let_us_find_your_vehicle(self):
+        let_us_find_your_vehicle_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[12]/a')
+        print("found let us find your vehicle button")
+        action(self.driver).move_to_element(let_us_find_your_vehicle_button).click().perform()
+        print("let us find your vehicle button has been selected")
+        return
+
+#Selecting the "View Details" button on one of the matches on the Search Inventory page (TC G01)
+    def view_details(self):
+        view_details_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[2]/div[6]/div[2]/div[2]/div/div[1]/div/div[2]/div[8]/div/a')
+        print("found view details button")
+        action(self.driver).move_to_element(view_details_button).click().perform()
+        print("view details button has been selected")
+        return
+
+#Selecting the "Get Internet Price" button on one of the matches on the Search Inventory page (TC G02)
+    def get_internet_price(self):
+        get_an_internet_price_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div/div[4]/div[1]/div[2]/div[1]/div/div/div[2]/button[1]')
+        print("found get an internet price button")
+        action(self.driver).move_to_element(get_an_internet_price_button).click().perform()
+        print("get an internet price button has been selected")
+        return
+
+#Selecting the "Schedule a Test Drive" button on one of the matches on the Search Inventory page (TC G03)
+    def schedule_test_drive(self):
+        schedule_a_test_drive_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div/div[4]/div[1]/div[2]/div[1]/div/div/div[2]/button[2]')
+        print("found schedule a test drive button")
+        action(self.driver).move_to_element(schedule_a_test_drive_button).click().perform()
+        print("schedule a test drive has been selected")
+        return
+
+
+
+
 
 '''define ItemSelection SELECT method(self, index): < index arg lets you select a choice from outside the class
         try:
