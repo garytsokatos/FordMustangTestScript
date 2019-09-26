@@ -30,7 +30,9 @@ def dictionary_iterater(self, dictionary):
     for el in dictionary:
         button = self.driver.find_element_by_xpath(dictionary[el][0])
         print("Found " + dictionary[el][1])
-        action(self.driver).move_to_element(button).click().perform()
+        time.sleep(2)
+        button.click()
+        #action(self.driver).move_to_element(button).click().perform()
         print("\t" + dictionary[el][1] + " has been selected")
         self.change_requirement()
 
@@ -77,6 +79,18 @@ class ItemSelectorClass:
         action(self.driver).move_to_element(color_button).click().perform()
         print("\t" + id[id]['color'] + " has been selected")
         self.change_requirement()
+
+    def survey_handler(self):
+        try:
+            time.sleep(1)
+            #no_button = self.driver.find_element_by_class_name("btn.btn-no")
+            #no_button = self.driver.find_element_by_xpath('/html/body/div[5]/div[2]/a[2]')
+            no_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "btn btn-no")))
+            no_button.click()
+        except:
+            print("survey did not pop-up")
+            return
+
 
 
 
@@ -185,6 +199,7 @@ class ItemSelectorClass:
             1: ("//div[contains(text(), 'Ebony Tape Stripe')]",  'Ebony Tape Stripe'),
             2: ("//div[contains(text(), 'Less Tape Stripe')]", 'Less Tape Stripe'),
         }
+        time.sleep(1)
         dictionary_iterater(self, tape_stripe_selection)
 
         print("\t\tall tape stripes have been selected")

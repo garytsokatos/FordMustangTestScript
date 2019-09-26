@@ -13,6 +13,10 @@ TestModule = ItemSelectorClass()
   #  def __init__(self):
 
 #Test A01 - Vehicle Customization Set-Up - "Vehicles"
+def Survey_Handler_Method():
+
+        TestModule.survey_handler()
+
 def Test_A01_A06():
 
         TestModule.get_to_car_build()
@@ -118,16 +122,17 @@ def Test_G03():
 
         TestModule.schedule_test_drive()
 
+#Survey_Handler_Method()
 
 Test_A01_A06()
 Test_B01()
-#Test_C01()
-#Test_C02()
-#Test_C03()
-#Test_C04()
+Test_C01()
+Test_C02()
+Test_C03()
+Test_C04()
 #Test_C05()
-Test_D01()
-#Test_E01()
+#Test_D01()
+'''Test_E01()
 Test_F01()
 Test_F02()
 Test_F03()
@@ -137,7 +142,7 @@ Test_F06()
 Test_F07()
 Test_G01()
 Test_G02()
-Test_G03()
+Test_G03()'''
 print("closing browser")
 time.sleep(5)
 TestModule.close_browser()
