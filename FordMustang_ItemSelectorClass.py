@@ -28,9 +28,10 @@ import random
 #this will iterate through a dictionary by grabbing an xpath and clicking on the button, and it will print out the button that was selected:
 def dictionary_iterater(self, dictionary):
     for el in dictionary:
-        button = self.driver.find_element_by_xpath(dictionary[el][0])
+        #button = self.driver.find_element_by_xpath(dictionary[el][0])
+        button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
         print("Found " + dictionary[el][1])
-        action(self.driver).move_to_element(button).click().perform()
+        button.click()
         print("\t" + dictionary[el][1] + " has been selected")
         self.change_requirement()
 
@@ -151,8 +152,8 @@ class ItemSelectorClass:
         convertible_button.click()
         print('\tconvertible button has been found and selected')
 
-        time.sleep(2)
-
+        #time.sleep(2)
+#TODO: Come back to this element and see if we can find a less brittle way of grabbing it. This selection method is the best I've found given the way its coded, but I would like to return to it if time allows. - Cheyanne
         convertible_image = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//img[@src='//build.ford.com/dig/Ford/Mustang/2020/HD-TILE/Image[|Ford|Mustang|2020|1|1.|100A.P8U..PQ..882.~VIRTUALPKGPART_D5HAB_6.~VIRTUALPKGPART_HNAAJ_7.LTS.CON.~VIRTUALPKGPART_AACAA_16.~VIRTUALPKGPART_AB2AA_18.~VIRTUALPKGPART_D17AA_21.~VIRTUALPKGPART_D2YFY_22.SYN.86C.453.64A.43S.MST.891.ANT.LRS.CLO.99H.RWD.44X.EBST.TDP.LESS.12A.13D.14L.14A.58A.2020 P8U FORD.]/EXT/1/vehicle.png']")))
         print("found configure")
         convertible_image.click()
@@ -216,11 +217,11 @@ class ItemSelectorClass:
 
 #Selecting all powertrain drop-down arrow to open the powertrain category (Test Case C02)
     def powertrain(self):
-        powertrain_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[2]/div[1]/div/div/span[3]')
-        action(self.driver).move_to_element(powertrain_select).click().perform()
+        powertrain_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Powertrain']")))
+        powertrain_select.click()
         print("powertrain drop-down has been selected")
 
-        time.sleep(2)
+        #time.sleep(2)
         return
 
 #Selecting all possible engine options in the powertrain category (Test Case C02)
@@ -246,7 +247,7 @@ class ItemSelectorClass:
 
 #Selecting the packages drop-down arrow to open the packages category (Test Case C03)
     def packages(self):
-        packages_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[3]/div[1]/div/div')
+        packages_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Packages']")))
         action(self.driver).move_to_element(packages_select).click().perform()
         print("packages drop-down has been selected")
         return
@@ -259,36 +260,34 @@ class ItemSelectorClass:
         }
         dictionary_iterater(self, equipment_group_selection)
         return
-
+#TODO Consistently running into click intercept errors with this method. Revisit to find a workaround.
 #Selecting all possible exterior package options in the packages category (Test Case C03)
     def exterior_package(self):
-        exterior_packasge_selection = {
+        exterior_package_selection = {
             0: ("//span[contains(text(), 'Black Accent Package')]", '101A Equipment Group'),
             1: ("//span[contains(text(), '2.3L High Performance Package')]", '2.3L High Performance Package'),
             2: ("//span[contains(text(), 'Wheel & Stripe Package')]", 'Wheel & Stripe Package')
         }
-        dictionary_iterater(self, exterior_packasge_selection)
+        dictionary_iterater(self, exterior_package_selection)
         return
 
-#Selecting all possible interior package options in the packages category (Test Case C03)
+#Selecting the Ford Safe and Smart package in the packages category (Test Case C03)
     def interior_package(self):
-        ford_safe_and_smart_package = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[3]/div[2]/div[3]/ul/li/div[1]/div[2]/img')
-        action(self.driver).move_to_element(ford_safe_and_smart_package).click().perform()
-        time.sleep(1)
-        add = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[4]/div[4]/a')
-        action(self.driver).move_to_element(add).click().perform()
+        ford_safe_and_smart_package = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//img[@src='//assets.forddirect.fordvehicles.com/assets/2019_Ford_Mustang_J1/BP2/BP3TINGPKGTHM/136B520C-8CFA-72C8-5905-E80E5905E80E.jpg']")))
+        ford_safe_and_smart_package.click()
+        add = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Add")]')))
+        add.click()
         print("\tford safe and smart package has been selected")
 
         print("\t\tall packages have been selected")
         print("\t\t\t***Test Case C03 has passed***")
         return
 
-
 #Selecting exterior drop-down arrow to open the exterior category (Test Case C04)
     def exterior(self):
-        exterior_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[4]/div[1]/div/div/span[3]')
+        exterior_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Exterior']")))
         print("found exterior select")
-        action(self.driver).move_to_element(exterior_select).click().perform()
+        exterior_select.click()
         print("exterior drop-down has been selected")
         return
 
@@ -350,9 +349,9 @@ class ItemSelectorClass:
         print("\t\t***Test Case C04 has passed***")
         return
 
-#Selecting exterior drop-down arrow to open the interior category (Test Case C05)
+#Selecting interior drop-down arrow to open the interior category (Test Case C05)
     def interior(self):
-        interior_select = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[5]/div[1]/div/div')
+        interior_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Interior']")))
         print("found interior select")
         action(self.driver).move_to_element(interior_select).click().perform()
         print("interior drop-down has been selected")
@@ -360,12 +359,12 @@ class ItemSelectorClass:
 
 #Selecting all possible cloth options in the interior category (Test Case C05)
     def cloth(self):
-        ceramic = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[5]/div[2]/div[1]/div[2]/div/div[2]/div[1]/ul/li[2]/div/div[1]/img')
+        ceramic = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Ceramic ']")))
         print("found ceramic cloth")
         action(self.driver).move_to_element(ceramic).click().perform()
         print("ceramic cloth has been selected")
 
-        ebony = self.driver.find_element_by_xpath('/html/body/div[9]/div[6]/div[3]/div[3]/div[2]/div/div/div[5]/div[2]/div[1]/div[2]/div/div[2]/div[1]/ul/li[1]/div/div[1]/img')
+        ebony = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Ebony ']")))
         print("found ebony cloth")
         action(self.driver).move_to_element(ebony).click().perform()
         print("ebony cloth has been selected")
@@ -408,14 +407,14 @@ class ItemSelectorClass:
         print("\tall audio upgrade options have been selected")
         print("\t\t\t***Test Case C05 has passed***")
         return
-
+#TODO element selector not working
 #Selecting the Summary button after Test Cases C01 - C05 have been completed
     def summary(self):
         time.sleep(1)
-        summary_button = self.driver.find_element_by_class_name('summary-modal-close ng-scope ng-isolate-scope')
+        summary_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Show Summary']")))
         print("found summary button")
-        time.sleep(1)
-        action(self.driver).move_to_element(summary_button).click().perform()
+        #time.sleep(1)
+        summary_button.click()
         print("summary button has been selected")
 
         '''summary_close = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[1]')
@@ -425,40 +424,38 @@ class ItemSelectorClass:
 
 #Selecting and closing out of 'Speacial Offers' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def special_offers(self):
-        special_offers = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[6]/div[3]/div[7]/div[3]/a')
+        special_offers = wait(self.driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Special Offers')))
         print("found special offers")
         time.sleep(1)
-        action(self.driver).move_to_element(special_offers).click().perform()
+        special_offers.click()
         print("special offers has been selected")
 
-        time.sleep(3)
+        time.sleep(1)
 
-        special_offers_close = self.driver.find_element_by_xpath('/html/body/div[21]/div/div/div/div[1]')
+        special_offers_close = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".iframe-modal-close > .close-txt")))
         print("found special offers close button")
-        action(self.driver).move_to_element(special_offers_close).click().perform()
+        special_offers_close.click()
         print("special offers close button has been selected")
 
 #Selecting and closing out of 'Look Up Trade-In-Value' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def trade_in_value(self):
-        look_up_trade_in_value = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[6]/div[3]/div[7]/div[4]/a')
+        look_up_trade_in_value = wait(self.driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Look up Trade-In-Value')))
         print("found look up trade-in-value")
-        action(self.driver).move_to_element(look_up_trade_in_value).click().perform()
+        look_up_trade_in_value.click()
         print("look up trade-in-value has been selected")
 
-        time.sleep(3)
+        time.sleep(1)
 
-        look_up_trade_in_value_close = self.driver.find_element_by_xpath('/html/body/div[21]/div/div/div/div[1]')
-        print("found look up trade-in-value close button")
-        action(self.driver).move_to_element(look_up_trade_in_value_close).click().perform()
-        print("look up trade-in-value button has been selected")
+        look_up_trade_in_value_close = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".iframe-modal-close > .close-txt")))
+        look_up_trade_in_value_close.click()
+        print("look up trade-in-value Close button has been selected")
 
 #Selecting 'Search Inventory' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def search_inventory(self):
-        time.sleep(1)
-        search_inventory = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[6]/div[3]/div[7]/div[2]/a')
+        search_inventory = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "(//a[contains(text(),'Search Inventory')])[2]")))
         print("found search inventory")
-        time.sleep(1)
-        action(self.driver).move_to_element(search_inventory).click().perform()
+        time.sleep(4)
+        search_inventory.click()
         print("search inventory button has been selected")
 
 #Test Case Category E, make sure to set test case category A in the test script as a precondition (TC D01.1) after Test Cases C01 - C05 have been completed
