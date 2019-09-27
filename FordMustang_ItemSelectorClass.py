@@ -149,14 +149,12 @@ class ItemSelectorClass:
         print('\tzip code enter button has been found and selected')
         print('\t\t***Test A05 has passed***')
 
-        #time.sleep(3)
-
-        build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
-        print("found build your own")
-        #time.sleep(2)
-        build_your_own_button.click()
-        print('\tbuild your own button has been found and selected')
-        print('\t\t***Test A06 has passed***')
+        #build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
+        #print("found build your own")
+        ##time.sleep(2)
+        #build_your_own_button.click()
+        #print('\tbuild your own button has been found and selected')
+        #print('\t\t***Test A06 has passed***')
         return
 
 #Setting up the mustang model to be tested, includes which model and which option of performance (Test Case B01)
@@ -476,17 +474,18 @@ class ItemSelectorClass:
 
 #Test Case Category E, make sure to set test case category A in the test script as a precondition (TC D01.1) after Test Cases C01 - C05 have been completed
     def let_us_find_it_for_you_select(self):
-        let_us_find_it_for_you_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[2]/a/div/img')
+        time.sleep(5)
+        let_us_find_it_for_you_button = self.driver.find_element_by_xpath("/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[2]/a/div/img")
         print("found let us find it for you button")
-        action(self.driver).move_to_element(let_us_find_it_for_you_button).click().perform()
+        let_us_find_it_for_you_button.click()
         print("let us find it for you button has been selected")
 
 #TODO clean up full xpath
 #This is a list of all of the possible 2020 Mustang models. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_your_model(self):
         your_model_selection = {
-            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[1]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Fastback'),
-            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Premium Fastback'),
+            0: ("(//div[@role='checkbox'][@aria-label='EcoBoost® Fastback'])", 'EcoBoost® Fastback'),
+            1: ('EcoBoost® Premium Fastback'),
             2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[3]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Convertible'),
             3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[4]/div[1]/div[1]/div[1]/div/span', 'GT Fastback'),
             4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[5]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Premium Convertible'),
