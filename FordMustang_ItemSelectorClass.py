@@ -47,8 +47,25 @@ class ItemSelectorClass:
         #self.driver.get("https://shop.ford.com/build/mustang/#/config/Config%5B%7CFord%7CMustang%7C2020%7C1%7C1.%7C100A.P8U.....CON.MST.~YZKAA.EBST.LESS.%5D")
         #self.driver.maximize_window()
         #self.wait = WebDriverWait(self.driver, 10)
-        self.driver.implicitly_wait(5)
+        #self.driver.implicitly_wait(1)
         #self.driver.quit()
+
+    def open_browser(self):
+        self.driver.get("https://www.ford.com/")
+        print('Loaded Ford.com main page.')
+
+        try:
+            popupFrame = wait(self.driver, 2).until(EC.element_to_be_clickable((By.ID, 'IPerceptionsEmbed')))
+            print('Identified Survey Splash Screen. ')
+            self.driver.switch_to.frame(popupFrame)
+            print('Switched to Survey Page splash screen.')
+            no_survey_button = wait(self.driver, 2).until(
+                EC.element_to_be_clickable((By.XPATH, "//*[@class='btn btn-no']")))
+            no_survey_button.click()
+            print('Clicked No button to Survey Splash Screen.')
+            self.driver.switch_to.default_content()
+        except:
+            print('No Survey Splash Screen loaded. Proceeding to next test.')
 
     def loadtime(self):
         navigationStart = self.driver.execute_script("return window.performance.timing.navigationStart")

@@ -14,7 +14,7 @@ TestModule = ItemSelectorClass()
 
 #Test A01 - Vehicle Customization Set-Up - "Vehicles"
 def Test_A01_A06():
-
+        TestModule.open_browser()
         TestModule.get_to_car_build()
 
 def Test_B01():
