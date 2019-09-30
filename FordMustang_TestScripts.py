@@ -143,7 +143,7 @@ Test_F06()
 Test_F07()
 Test_G01()
 Test_G02()
-Test_G03()
+Test_G03()'''
 print("closing browser")
 time.sleep(5)
-TestModule.close_browser()'''
+TestModule.close_browser()

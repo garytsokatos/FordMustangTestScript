@@ -32,7 +32,7 @@ def dictionary_iterater(self, dictionary):
         button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
         print("Found " + dictionary[el][1])
         time.sleep(2)
-        button.click()
+        #button.click().perform()
         #action(self.driver).move_to_element(button).click().perform()
         button.click()
         print("\t" + dictionary[el][1] + " has been selected")
@@ -490,16 +490,16 @@ class ItemSelectorClass:
     def let_us_find_it_for_you_your_model(self):
         your_model_selection = {
             0: ("(//div[@role='checkbox'][@aria-label='EcoBoost® Fastback'])", 'EcoBoost® Fastback'),
-            1: ('EcoBoost® Premium Fastback'),
-            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[3]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Convertible'),
-            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[4]/div[1]/div[1]/div[1]/div/span', 'GT Fastback'),
-            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[5]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Premium Convertible'),
-            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[5]/div[1]/div[1]/div[1]/div/span', 'GT Premium Fastback'),
-            6: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[7]/div[1]/div[1]/div[1]/div/span', 'GT Premium Convertible'),
-            7: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[8]/div[1]/div[1]/div[1]/div/span', 'BULLITT™'),
-            8: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[9]/div[1]/div[1]/div[1]/div/span', 'Shelby GT350®'),
-            9: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[10]/div[1]/div[1]/div[1]/div/span', 'Shelby GT500®'),
-            10: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[11]/div[1]/div[1]/div[1]/div/span', 'Shelby® GT350R')
+            1: ("(//div[@role='checkbox'][@aria-label='EcoBoost® Premium Fastback'])", 'EcoBoost® Premium Fastback'),
+            2: ("(//div[@role='checkbox'][@aria-label='EcoBoost® Convertible'])", 'EcoBoost® Convertible'),
+            3: ("(//div[@role='checkbox'][@aria-label='GT Fastback'])", 'GT Fastback'),
+            4: ("(//div[@role='checkbox'][@aria-label='EcoBoost® Premium Convertible'])", 'EcoBoost® Premium Convertible'),
+            5: ("(//div[@role='checkbox'][@aria-label='GT Premium Fastback'])", 'GT Premium Fastback'),
+            6: ("(//div[@role='checkbox'][@aria-label='GT Premium Convertible'])", 'GT Premium Convertible'),
+            7: ("(//div[@role='checkbox'][@aria-label='BULLITT™'])", 'BULLITT™'),
+            8: ("(//div[@role='checkbox'][@aria-label='Shelby GT350®'])", 'Shelby GT350®'),
+            9: ("(//div[@role='checkbox'][@aria-label='Shelby GT500®'])", 'Shelby GT500®'),
+            10: ("(//div[@role='checkbox'][@aria-label='Shelby® GT350R'])", 'Shelby® GT350R')
         }
         dictionary_iterater(self, your_model_selection)
         print("all models have been selected")
@@ -575,18 +575,18 @@ class ItemSelectorClass:
 
 #This is a list of all of the possible optional upgrades for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_optional_upgrades(self):
-        optional_upgrades_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]')
+        optional_upgrades_button = self.driver.find_element_by_xpath("//div[contains(text(), 'Optional Upgrades')]")
         print("found optional upgrades button")
         action(self.driver).move_to_element(optional_upgrades_button).click().perform()
         print("optional upgrades button has been selected")
 
         optional_upgrades_selection = {
-            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[1]/div[2]/div[1]/div[1]/div/span', 'SYNC® 3'),
-            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[2]/div[2]/div[1]/div[1]/div/span', 'EcoBoost Handling Package'),
-            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[3]/div[2]/div[1]/div[1]/div/span', 'Wheel & Stripe Package'),
-            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[4]/div[2]/div[1]/div[1]/div/span', 'Ford Safe and Smart™ Package'),
-            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[5]/div[2]/div[1]/div[1]/div/span', '2.3L High Performance Package'),
-            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[5]/div[2]/div[6]/div[2]/div[1]/div[1]/div/span', 'Black Accent Package')
+            0: ("(//div[@role='checkbox'][@aria-label='SYNC® 3'])", 'SYNC® 3'),
+            1: ("(//div[@role='checkbox'][@aria-label='EcoBoost Handling Package'])", 'EcoBoost Handling Package'),
+            2: ("(//div[@role='checkbox'][@aria-label='Wheel & Stripe Package'])", 'Wheel & Stripe Package'),
+            3: ("(//div[@role='checkbox'][@aria-label='Ford Safe and Smart&#153; Package'])", 'Ford Safe and Smart™ Package'),
+            4: ("(//div[@role='checkbox'][@aria-label='2.3L High Performance Package'])", '2.3L High Performance Package'),
+            5: ("(//div[@role='checkbox'][@aria-label='Black Accent Package'])", 'Black Accent Package')
         }
         dictionary_iterater(self, optional_upgrades_selection)
         print("all optional upgrades have been selected")
