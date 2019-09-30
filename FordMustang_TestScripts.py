@@ -15,10 +15,11 @@ TestModule = ItemSelectorClass()
 #Test A01 - Vehicle Customization Set-Up - "Vehicles"
 def Survey_Handler_Method():
 
-        TestModule.survey_handler()
+        TestModule.open_browser()
 
 def Test_A01_A06():
 
+        TestModule.open_browser()
         TestModule.get_to_car_build()
 
 def Test_B01():

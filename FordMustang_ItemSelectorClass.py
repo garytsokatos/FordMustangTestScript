@@ -84,16 +84,21 @@ class ItemSelectorClass:
         print("\t" + id[id]['color'] + " has been selected")
         self.change_requirement()
 
-    def survey_handler(self):
+    def open_browser(self):
+        self.driver.get("https://www.ford.com/")
+        print('Loaded Ford.com main page.')
         try:
-            time.sleep(1)
-            #no_button = self.driver.find_element_by_class_name("btn.btn-no")
-            #no_button = self.driver.find_element_by_xpath('/html/body/div[5]/div[2]/a[2]')
-            no_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "btn btn-no")))
-            no_button.click()
+            popupFrame = wait(self.driver, 2).until(EC.element_to_be_clickable((By.ID, 'IPerceptionsEmbed')))
+            print('Identified Survey Splash Screen. ')
+            self.driver.switch_to.frame(popupFrame)
+            print('Switched to Survey Page splash screen.')
+            no_survey_button = wait(self.driver, 2).until(
+                EC.element_to_be_clickable((By.XPATH, "//*[@class='btn btn-no']")))
+            no_survey_button.click()
+            print('Clicked No button to Survey Splash Screen.')
+            self.driver.switch_to.default_content()
         except:
-            print("survey did not pop-up")
-            return
+            print('No Survey Splash Screen loaded. Proceeding to next test.')
 
 
 
