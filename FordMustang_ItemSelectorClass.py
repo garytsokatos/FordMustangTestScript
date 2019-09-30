@@ -27,16 +27,18 @@ import random
 
 #this will iterate through a dictionary by grabbing an xpath and clicking on the button, and it will print out the button that was selected:
 def dictionary_iterater(self, dictionary):
-    for el in dictionary:
-        #button = self.driver.find_element_by_xpath(dictionary[el][0])
-        button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
-        print("Found " + dictionary[el][1])
-        time.sleep(2)
-        #button.click().perform()
-        #action(self.driver).move_to_element(button).click().perform()
-        button.click()
-        print("\t" + dictionary[el][1] + " has been selected")
-        self.change_requirement()
+    try:
+        for el in dictionary:
+            #button = self.driver.find_element_by_xpath(dictionary[el][0])
+            button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
+            print("Found " + dictionary[el][1])
+            time.sleep(2)
+            button.click()
+            print("\t" + dictionary[el][1] + " has been selected")
+            self.change_requirement()
+    except Exception as err:
+        print(err)
+        return
 
 class ItemSelectorClass:
 
@@ -50,8 +52,25 @@ class ItemSelectorClass:
         #self.driver.get("https://shop.ford.com/build/mustang/#/config/Config%5B%7CFord%7CMustang%7C2020%7C1%7C1.%7C100A.P8U.....CON.MST.~YZKAA.EBST.LESS.%5D")
         #self.driver.maximize_window()
         #self.wait = WebDriverWait(self.driver, 10)
-        self.driver.implicitly_wait(5)
+        #self.driver.implicitly_wait(1)
         #self.driver.quit()
+
+    def open_browser(self):
+        self.driver.get("https://www.ford.com/")
+        print('Loaded Ford.com main page.')
+
+        try:
+            popupFrame = wait(self.driver, 2).until(EC.element_to_be_clickable((By.ID, 'IPerceptionsEmbed')))
+            print('Identified Survey Splash Screen. ')
+            self.driver.switch_to.frame(popupFrame)
+            print('Switched to Survey Page splash screen.')
+            no_survey_button = wait(self.driver, 2).until(
+                EC.element_to_be_clickable((By.XPATH, "//*[@class='btn btn-no']")))
+            no_survey_button.click()
+            print('Clicked No button to Survey Splash Screen.')
+            self.driver.switch_to.default_content()
+        except:
+            print('No Survey Splash Screen loaded. Proceeding to next test.')
 
     def loadtime(self):
         navigationStart = self.driver.execute_script("return window.performance.timing.navigationStart")
@@ -82,21 +101,7 @@ class ItemSelectorClass:
         print("\t" + id[id]['color'] + " has been selected")
         self.change_requirement()
 
-    def open_browser(self):
-        self.driver.get("https://www.ford.com/")
-        print('Loaded Ford.com main page.')
-        try:
-            popupFrame = wait(self.driver, 2).until(EC.element_to_be_clickable((By.ID, 'IPerceptionsEmbed')))
-            print('Identified Survey Splash Screen. ')
-            self.driver.switch_to.frame(popupFrame)
-            print('Switched to Survey Page splash screen.')
-            no_survey_button = wait(self.driver, 2).until(
-                EC.element_to_be_clickable((By.XPATH, "//*[@class='btn btn-no']")))
-            no_survey_button.click()
-            print('Clicked No button to Survey Splash Screen.')
-            self.driver.switch_to.default_content()
-        except:
-            print('No Survey Splash Screen loaded. Proceeding to next test.')
+
 
 
 
@@ -154,12 +159,13 @@ class ItemSelectorClass:
         print('\tzip code enter button has been found and selected')
         print('\t\t***Test A05 has passed***')
 
-        #build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
-        #print("found build your own")
-        ##time.sleep(2)
-        #build_your_own_button.click()
-        #print('\tbuild your own button has been found and selected')
-        #print('\t\t***Test A06 has passed***')
+#TODO make this a method
+        build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
+        print("found build your own")
+        #time.sleep(2)
+        build_your_own_button.click()
+        print('\tbuild your own button has been found and selected')
+        print('\t\t***Test A06 has passed***')
         return
 
 #Setting up the mustang model to be tested, includes which model and which option of performance (Test Case B01)
@@ -206,7 +212,7 @@ class ItemSelectorClass:
         }
         time.sleep(1)
         dictionary_iterater(self, tape_stripe_selection)
-
+        self.change_requirement()
         print("\t\tall tape stripes have been selected")
         return
 
@@ -229,7 +235,7 @@ class ItemSelectorClass:
             2:  ("//div[contains(text(), 'Ebony Hood Stripe')]", 'Ebony Hood Stripe')
         }
         dictionary_iterater(self, hood_side_stripe_selection)
-
+        self.change_requirement()
         print("\t\tall hood and side stripes have been selected")
         print("\t\t\t***Test Case C01 has passed***")
         return
@@ -239,7 +245,7 @@ class ItemSelectorClass:
         powertrain_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Powertrain']")))
         powertrain_select.click()
         print("powertrain drop-down has been selected")
-
+        self.change_requirement()
 
         return
 
@@ -250,6 +256,7 @@ class ItemSelectorClass:
             1:  ("//span[contains(text(), '2.3L EcoBoost® Engine')]", '2.3L EcoBoost® Engine')
         }
         dictionary_iterater(self, engine_selection)
+        self.change_requirement()
         return
 
 #Selecting all possible transmission options in the powertrain category (Test Case C02)
@@ -259,7 +266,7 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), '6-Speed Manual Transmission')]", '6-Speed Manual Transmission')
         }
         dictionary_iterater(self, transmissions_selection)
-
+        self.change_requirement()
         print("\tAll engines and transmissions have been selected")
         print("\t\t***Test Case C02 has paseed***")
         return
@@ -268,6 +275,7 @@ class ItemSelectorClass:
     def packages(self):
         packages_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Packages']")))
         action(self.driver).move_to_element(packages_select).click().perform()
+        self.change_requirement()
         print("packages drop-down has been selected")
         return
 
@@ -278,6 +286,7 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), '100A Equipment Group')]", '100A Equipment Group')
         }
         dictionary_iterater(self, equipment_group_selection)
+        self.change_requirement()
         return
 #TODO Consistently running into click intercept errors with this method. Revisit to find a workaround.
 #Selecting all possible exterior package options in the packages category (Test Case C03)
@@ -288,6 +297,7 @@ class ItemSelectorClass:
             2: ("//span[contains(text(), 'Wheel & Stripe Package')]", 'Wheel & Stripe Package')
         }
         dictionary_iterater(self, exterior_package_selection)
+        self.change_requirement()
         return
 
 #Selecting the Ford Safe and Smart package in the packages category (Test Case C03)
@@ -399,7 +409,7 @@ class ItemSelectorClass:
             2: ("//span[contains(text(), 'Premium Floor Liners Front and Rear')]", 'Premium Floor Liners Front and Rear')
         }
         dictionary_iterater(self, rear_axle_selection)
-
+        self.change_requirement()
         print("\tall interior options have been selected")
         return
 
@@ -430,7 +440,7 @@ class ItemSelectorClass:
 #Selecting the Summary button after Test Cases C01 - C05 have been completed
     def summary(self):
         time.sleep(1)
-        summary_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Show Summary']")))
+        summary_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//span//div[@aria-label='Show Summary']")))
         print("found summary button")
         #time.sleep(1)
         summary_button.click()
@@ -480,7 +490,7 @@ class ItemSelectorClass:
 #Test Case Category E, make sure to set test case category A in the test script as a precondition (TC D01.1) after Test Cases C01 - C05 have been completed
     def let_us_find_it_for_you_select(self):
         time.sleep(5)
-        let_us_find_it_for_you_button = self.driver.find_element_by_xpath("/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[2]/a/div/img")
+        let_us_find_it_for_you_button = self.driver.find_element_by_xpath('//span[@contains(text(), "Let Us Find It For You")]')
         print("found let us find it for you button")
         let_us_find_it_for_you_button.click()
         print("let us find it for you button has been selected")
@@ -552,22 +562,21 @@ class ItemSelectorClass:
 
 #This is a list of all of the possible preferences for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_your_preferences(self):
-        your_preferences_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]')
-        print("found your preferences button")
-        action(self.driver).move_to_element(your_preferences_button).click().perform()
+        your_preferences_button = wait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Preferences')]")))
+        your_preferences_button.click()
         print("your preferences button has been selected")
 
         your_preferences_selection = {
-            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[2]/div/div[1]/div[1]/div/span', '2.3L EcoBoost® Engine'),
-            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8 Engine'),
-            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[4]/div/div[1]/div[1]/div/span', '2.3L High Performance EcoBoost® Engine'),
-            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[5]/div/div[1]/div[1]/div/span', '5.2L Ti-VCT V8 with Flat Plane Crank Engine'),
-            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[6]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8 Engine (BULLITT™)'),
-            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[7]/div/div[1]/div[1]/div/span', '5.2L Supercharged Cross Plane Crank V8'),
-            6: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div/span', 'TREMEC 7-Speed Dual Clutch (DCT)'),
-            7: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[3]/div/div[1]/div[1]/div/span', '10-Speed SelectShift® Automatic Transmission'),
-            8: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[4]/div/div[1]/div[1]/div/span', '6-Speed Manual Transmission'),
-            9: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[5]/div/div[1]/div[1]/div/span', '6-Speed Manual Transmission')
+            0: ('//div[starts-with(@aria-label, "2.3L EcoBoost")]', '2.3L EcoBoost® Engine'),
+            1: ('//div[starts-with(@aria-label, "5.0L Ti-VCT V8 Engine")]', '5.0L Ti-VCT V8 Engine'),
+            2: ('//div[starts-with(@aria-label, "2.3L High Performance")]', '2.3L High Performance EcoBoost® Engine'),
+            3: ('//div[starts-with(@aria-label, "5.2L Ti-VCT V8 with Flat Plane Crank Engine")]', '5.2L Ti-VCT V8 with Flat Plane Crank Engine'),
+            4: ('//div[starts-with(@aria-label, "5.0L Ti-VCT V8 Engine (BULLITT")]', '5.0L Ti-VCT V8 Engine (BULLITT™)'),
+            5: ('//div[starts-with(@aria-label, "5.2L Supercharged Cross Plane Crank V8")]', '5.2L Supercharged Cross Plane Crank V8'),
+            6: ('//div[starts-with(@aria-label, "TREMEC 7-Speed Dual Clutch")]', 'TREMEC 7-Speed Dual Clutch (DCT)'),
+            7: ('//div[starts-with(@aria-label, "10-Speed SelectShift")]', '10-Speed SelectShift® Automatic Transmission'),
+            8: ('//div[starts-with(@aria-label, "6-Speed Manual Transmission")]', '6-Speed Manual Transmission')
         }
         dictionary_iterater(self, your_preferences_selection)
         print("all preferences have been selected")
