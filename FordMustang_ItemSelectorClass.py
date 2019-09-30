@@ -31,6 +31,9 @@ def dictionary_iterater(self, dictionary):
         #button = self.driver.find_element_by_xpath(dictionary[el][0])
         button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
         print("Found " + dictionary[el][1])
+        time.sleep(2)
+        button.click()
+        #action(self.driver).move_to_element(button).click().perform()
         button.click()
         print("\t" + dictionary[el][1] + " has been selected")
         self.change_requirement()
@@ -96,6 +99,23 @@ class ItemSelectorClass:
         print("\t" + id[id]['color'] + " has been selected")
         self.change_requirement()
 
+    def open_browser(self):
+        self.driver.get("https://www.ford.com/")
+        print('Loaded Ford.com main page.')
+        try:
+            popupFrame = wait(self.driver, 2).until(EC.element_to_be_clickable((By.ID, 'IPerceptionsEmbed')))
+            print('Identified Survey Splash Screen. ')
+            self.driver.switch_to.frame(popupFrame)
+            print('Switched to Survey Page splash screen.')
+            no_survey_button = wait(self.driver, 2).until(
+                EC.element_to_be_clickable((By.XPATH, "//*[@class='btn btn-no']")))
+            no_survey_button.click()
+            print('Clicked No button to Survey Splash Screen.')
+            self.driver.switch_to.default_content()
+        except:
+            print('No Survey Splash Screen loaded. Proceeding to next test.')
+
+
 
 
 #Selecting the buttons on the home page to initiate the customization process flow (Test Cases A01 - A06)
@@ -151,14 +171,12 @@ class ItemSelectorClass:
         print('\tzip code enter button has been found and selected')
         print('\t\t***Test A05 has passed***')
 
-        #time.sleep(3)
-
-        build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
-        print("found build your own")
-        #time.sleep(2)
-        build_your_own_button.click()
-        print('\tbuild your own button has been found and selected')
-        print('\t\t***Test A06 has passed***')
+        #build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
+        #print("found build your own")
+        ##time.sleep(2)
+        #build_your_own_button.click()
+        #print('\tbuild your own button has been found and selected')
+        #print('\t\t***Test A06 has passed***')
         return
 
 #Setting up the mustang model to be tested, includes which model and which option of performance (Test Case B01)
@@ -203,6 +221,7 @@ class ItemSelectorClass:
             1: ("//div[contains(text(), 'Ebony Tape Stripe')]",  'Ebony Tape Stripe'),
             2: ("//div[contains(text(), 'Less Tape Stripe')]", 'Less Tape Stripe'),
         }
+        time.sleep(1)
         dictionary_iterater(self, tape_stripe_selection)
 
         print("\t\tall tape stripes have been selected")
@@ -238,7 +257,7 @@ class ItemSelectorClass:
         powertrain_select.click()
         print("powertrain drop-down has been selected")
 
-        #time.sleep(2)
+
         return
 
 #Selecting all possible engine options in the powertrain category (Test Case C02)
@@ -477,17 +496,18 @@ class ItemSelectorClass:
 
 #Test Case Category E, make sure to set test case category A in the test script as a precondition (TC D01.1) after Test Cases C01 - C05 have been completed
     def let_us_find_it_for_you_select(self):
-        let_us_find_it_for_you_button = self.driver.find_element_by_xpath('/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[2]/a/div/img')
+        time.sleep(5)
+        let_us_find_it_for_you_button = self.driver.find_element_by_xpath("/html/body/div[9]/div[7]/div/div/div/div/div/div[2]/div[2]/a/div/img")
         print("found let us find it for you button")
-        action(self.driver).move_to_element(let_us_find_it_for_you_button).click().perform()
+        let_us_find_it_for_you_button.click()
         print("let us find it for you button has been selected")
 
 #TODO clean up full xpath
 #This is a list of all of the possible 2020 Mustang models. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_your_model(self):
         your_model_selection = {
-            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[1]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Fastback'),
-            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Premium Fastback'),
+            0: ("(//div[@role='checkbox'][@aria-label='EcoBoost® Fastback'])", 'EcoBoost® Fastback'),
+            1: ('EcoBoost® Premium Fastback'),
             2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[3]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Convertible'),
             3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[4]/div[1]/div[1]/div[1]/div/span', 'GT Fastback'),
             4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[1]/div[2]/div/div[5]/div[1]/div[1]/div[1]/div/span', 'EcoBoost® Premium Convertible'),
@@ -592,7 +612,7 @@ class ItemSelectorClass:
 #This is selecting the continue button (TC F01), done after Test Case D01, to begin the Search Inventory functionality
     def _continue_(self):
         time.sleep(2)
-        continue_button = self.driver.find_element_by_xpath('/html/body/div[13]/div/div/div[3]/div/div/section[2]/div/button')
+        continue_button = self.driver.find_element_by_xpath("//div[@class='search-inventory']//button[contains(text(), 'Continue')]")
         print("found continue button")
         action(self.driver).move_to_element(continue_button).click().perform()
         print("continue button has been selected")
@@ -600,27 +620,30 @@ class ItemSelectorClass:
 
 #Upon entering a distance, ford will return a list of dealers within the designated mile radius the user selects
     def change_dealer_mileage(self):
-        change_mileage = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[1]/a/span')
+        change_mileage = self.driver.find_element_by_xpath("//div[@id='dealer-popdown']")
         print("found dealer mileage drop-down")
         action(self.driver).move_to_element(change_mileage).click().perform()
         print("dealer mileage drop-down has been selected")
 
 #TODO pick a random mile radius
 #This is selecting the 10 mile radius option
-        _10_miles_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[1]/ul/li[1]/a')
+        _10_miles_select = self.driver.find_element_by_xpath("//ul[@role='group']")   # get parent elemement of unordered list
+
+        mileage_list = _10_miles_select.find_elements_by_xpath("//li[@role='presentation']")  # get all elements from the dropdown list
+
         print("found 10 miles")
-        action(self.driver).move_to_element(_10_miles_select).click().perform()
+        action(self.driver).move_to_element(mileage_list[0]).click().perform()  # the 0 index of the list is the 10 mile element, click on it
         print("10 miles has been selected")
         return
 
 #Upon entering a zip code, ford will return the dealers in the area, depending on what was selected for the dealer mileage distance (TC F02)
     def change_dealer_zipcode(self):
-        change_dealer_x_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[2]/form/div/div/span/a/span')
+        change_dealer_x_button = self.driver.find_element_by_xpath("//a[@aria-label='Clear Field']")
         print("found x button in zip field")
         action(self.driver).move_to_element(change_dealer_x_button).click().perform()
         print("x button in zip field has been selected")
 
-        enter_zip_code = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[1]/div[2]/form/div/div/input')
+        enter_zip_code = self.driver.find_element_by_xpath("//input[@name='Postal Code']")
         print("found zip code field on search inventory page")
         action(self.driver).move_to_element(enter_zip_code).click().send_keys('60448').perform()
         print("zip code has been re-entered")
@@ -628,19 +651,25 @@ class ItemSelectorClass:
 
 #This is the list of dealers that have been returned after entering a mileage and zip code (TC F02)
     def select_from_list_of_dealers(self):
-        currie_motors = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/span/span[1]')
+
+        # get the parent element holding a list of the dealers
+        parent = self.driver.find_element_by_class_name("dealers-list.checkbox-options")
+
+        # get li elements and store inside of a list
+        dealer_list = parent.find_elements_by_xpath("//li[@role='Presentation']")
+
+        # the following can be turned into a loop
+        # 0 - currie motors, 1 - joe rizza, 2 - sutton ford
         print("found currie motors")
-        action(self.driver).move_to_element(currie_motors).click().perform()
+        action(self.driver).move_to_element(dealer_list[0]).click().perform()
         print("currie motors has been selected")
 
-        joe_rizza = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[2]/span/span[1]')
         print("found joe rizza")
-        action(self.driver).move_to_element(joe_rizza).click().perform()
+        action(self.driver).move_to_element(dealer_list[1]).click().perform()
         print("joe rizza has been selected")
 
-        sutton_ford = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
         print("found sutton ford")
-        action(self.driver).move_to_element(sutton_ford).click().perform()
+        action(self.driver).move_to_element(dealer_list[2]).click().perform()
         print("sutton ford has been selected")
 
         print("all dealers have been selected")
@@ -648,22 +677,27 @@ class ItemSelectorClass:
 
 #This is a hard coded list of all of the possible body styles for the mustang. Program should procedurally go through and select all of the options in the list (TC F02)
     def body_style(self):
-        #unselect_convertible = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
-        unselect_convertible = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'checkbox-bodyStyle-0')))
+
+        parent = self.driver.find_element_by_xpath("//ul[@class='checkbox-options']") # get parent element
+
+        body_style_list = parent.find_elements_by_xpath("//li[@role='Presentation']")
         print("found convertible")
-        action(self.driver).move_to_element(unselect_convertible).click().perform()
+        action(self.driver).move_to_element(body_style_list[0]).click().perform()
         print("convertible has been unselected")
 
-        select_convertible = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        parent = self.driver.find_element_by_xpath("//ul[@class='checkbox-options']")  # get parent element
+
+        body_style_list = parent.find_elements_by_xpath("//li[@role='Presentation']")
         print("found convertible")
-        action(self.driver).move_to_element(select_convertible).click().perform()
+        action(self.driver).move_to_element(body_style_list[0]).click().perform()
         print("convertible has been selected")
 
-        select_coupe_fastback = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[1]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        parent = self.driver.find_element_by_xpath("//ul[@class='checkbox-options']")  # get parent element
+
+        body_style_list = parent.find_elements_by_xpath("//li[@role='Presentation']")
         print("found couple/fastback")
         time.sleep(3)
-        #action(self.driver).move_to_element(select_coupe_fastback).click().perform()
-        select_coupe_fastback.click()
+        body_style_list[1].click()
         print("couple/fastback has been selected")
 
         print("all body styles have been selected")
@@ -673,7 +707,7 @@ class ItemSelectorClass:
     def select_model(self):
         time.sleep(5)
 
-        unselect_ecoboost = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/span/span[1]')
+        unselect_ecoboost = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), 'EcoBoost')]")
         print("found ecoboost")
         action(self.driver).move_to_element(unselect_ecoboost).click().perform()
         print("ecoboost has been unselected")
@@ -686,63 +720,63 @@ class ItemSelectorClass:
 
         time.sleep(10)
 
-        select_ecoboost_100A = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/ul/li[1]/span[1]/span[1]')
+        select_ecoboost_100A = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), '100A')]")
         print("found ecoboost 100a")
         action(self.driver).move_to_element(select_ecoboost_100A).click().perform()
         print("ecoboost 100a has been selected")
 
         time.sleep(5)
 
-        select_ecoboost_101A = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[1]/ul/li[2]/span[1]/span[1]')
+        select_ecoboost_101A = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), '101A')]")
         print("found ecoboost 101a")
         action(self.driver).move_to_element(select_ecoboost_101A).click().perform()
         print("ecoboost 101a has been selected")
 
         time.sleep(5)
 
-        select_ecoboost_premium = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[2]/span/span[1]')
+        select_ecoboost_premium = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), 'EcoBoost® Premium')]")
         print("found ecoboost premium")
         action(self.driver).move_to_element(select_ecoboost_premium).click().perform()
         print("ecoboost premium has been selected")
 
         time.sleep(5)
 
-        select_gt = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[3]/span/span[1]')
+        select_gt = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@text='GT']")
         print("found GT")
         action(self.driver).move_to_element(select_gt).click().perform()
         print("GT has been selected")
 
         time.sleep(5)
 
-        select_gt_premium = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[4]/span/span[1]')
+        select_gt_premium = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@text='GT Premium']")
         print("found GT premium")
         action(self.driver).move_to_element(select_gt_premium).click().perform()
         print("GT premium has been selected")
 
         time.sleep(5)
 
-        select_bullitt = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[5]/span/span[1]')
+        select_bullitt = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), 'BULLITT')]")
         print("found bullitt")
         action(self.driver).move_to_element(select_bullitt).click().perform()
         print("bullitt has been selected")
 
         time.sleep(5)
 
-        select_shelby_gt350 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[6]/span/span[1]')
+        select_shelby_gt350 = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), 'GT350')]")
         print("found shelby gt350")
         action(self.driver).move_to_element(select_shelby_gt350).click().perform()
         print("shelby gt350 has been selected")
 
         time.sleep(5)
 
-        select_shelby_gt500 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[7]/span/span[1]')
+        select_shelby_gt500 = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), 'GT500')]")
         print("found shelby gt500")
         action(self.driver).move_to_element(select_shelby_gt500).click().perform()
         print("shelby gt500 has been selected")
 
         time.sleep(5)
 
-        select_shelby_gt350r = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[2]/ul/li[8]/span/span[1]')
+        select_shelby_gt350r = self.driver.find_element_by_xpath("//span[@role='checkbox']//span[@contains(text(), 'Shelby®')]")
         print("found shelby gt350r")
         action(self.driver).move_to_element(select_shelby_gt350r).click().perform()
         print("shelby gt350r has been selected")
@@ -752,19 +786,19 @@ class ItemSelectorClass:
 
 #This is a hard coded list of all of the possible model years for the mustang. Program should procedurally go through and select all of the options in the list (TC F02)
     def year(self):
-        select_2019 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[3]/ul/li[1]/span/span[1]')
+        select_2019 = self.driver.find_element_by_xpath("//span[@id='check-year-0']")
         print("found 2019")
         action(self.driver).move_to_element(select_2019).click().perform()
         print("2019 has been selected")
 
         time.sleep(5)
 
-        unselect_2020 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[3]/ul/li[2]/span/span[1]')
+        unselect_2020 = self.driver.find_element_by_xpath("//span[@id='check-year-1]")
         print("found 2020")
         action(self.driver).move_to_element(unselect_2020).click().perform()
         print("2020 has been unselected")
 
-        select_2020 = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[3]/div/div/div/div[2]/div/fieldset[3]/ul/li[2]/span/span[1]')
+        select_2020 = self.driver.find_element_by_xpath("//span[@id='check-year-1]")
         print("found 2020")
         action(self.driver).move_to_element(select_2020).click().perform()
         print("2020 has been selected")
@@ -774,21 +808,21 @@ class ItemSelectorClass:
 
 #This is a list of all of the possible power and handling optoins for the mustang. Program should loop through and select all of the options in the list (TC F03)
     def power_and_handling(self):
-        power_and_handling_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[4]/div/div/div/div[1]/span[1]')
+        power_and_handling_select = self.driver.find_element_by_xpath("//div[@data-ng-switch-when='power_handling']")
         print("found power and handling drop-down")
         action(self.driver).move_to_element(power_and_handling_select).click().perform()
         print("power and handling drop-down has been selected")
 
         power_and_handling_select = {
-            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[2]/div/div[1]/div[1]/div/span', '2.3L EcoBoost'),
-            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8'),
-            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[4]/div/div[1]/div[1]/div/span', '5.0Litre Ti-VCT V8'),
-            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[5]/div/div[1]/div[1]/div/span', '5.2L Ti-VCT V8'),
-            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[6]/div/div[1]/div[1]/div/span', '2.3L High Performance Eco Boost'),
-            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[7]/div/div[1]/div[1]/div/span', '5.2L Supercharged Cross Plane Crank V8'),
-            6: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div/span', 'SelectShift Automatic'),
-            7: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[3]/div/div[1]/div[1]/div/span', 'Manual'),
-            8: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[4]/div/div[1]/div[1]/div/span', 'Rear-Wheel Drive')
+            0: ("//ul[@aria-labelledby='filter-title-power-0']//span[@id='check-power-0']", '2.3L EcoBoost'),
+            1: ("//ul[@aria-labelledby='filter-title-power-0']//span[@id='check-power-1']", '5.0L Ti-VCT V8'),
+            2: ("//ul[@aria-labelledby='filter-title-power-0']//span[@id='check-power-2']", '5.0Litre Ti-VCT V8'),
+            3: ("//ul[@aria-labelledby='filter-title-power-0']//span[@id='check-power-3']", '5.2L Ti-VCT V8'),
+            4: ("//ul[@aria-labelledby='filter-title-power-0']//span[@id='check-power-4']", '2.3L High Performance Eco Boost'),
+            5: ("//ul[@aria-labelledby='filter-title-power-0']//span[@id='check-power-5']", '5.2L Supercharged Cross Plane Crank V8'),
+            6: ("//ul[@aria-labelledby='filter-title-power-1']//span[@id='check-power-0']", 'SelectShift Automatic'),
+            7: ("//ul[@aria-labelledby='filter-title-power-1']//span[@id='check-power-1']", 'Manual'),
+            8: ("//ul[@aria-labelledby='filter-title-power-2']//span[@id='check-power-0']", 'Rear-Wheel Drive')
         }
         dictionary_iterater(self, power_and_handling_select)
         print("all power and handling selections have been selected")
@@ -796,28 +830,28 @@ class ItemSelectorClass:
 
 #This is a list of all of the possible exterior colors for the mustang. Program should loop through and select all of the options in the list (TC F04)
     def exterior_color(self):
-        exterior_color_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[1]')
+        exterior_color_select = self.driver.find_element_by_xpath("//div[@data-ng-switch-when='exterior_color']")
         print("found exterior color drop-down")
         action(self.driver).move_to_element(exterior_color_select).click().perform()
         print("exterior color drop-down has been selected")
 
         exterior_color_selection = {
-            0: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[1]/div/div', 'Dark Highland Green'),
-            1: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[2]/div/div', 'Grabber Lime'),
-            2: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[3]/div/div', 'Iconic Silver'),
-            3: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[4]/div/div', 'Ingot Silver'),
-            4: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[5]/div/div', 'Kona Blue'),
-            5: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[6]/div/div', 'Magnetic'),
-            6: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[7]/div/div', 'Need for Green'),
-            7: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[8]/div/div', 'Orange Fury'),
-            8: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[9]/div/div]', 'Oxford White'),
-            9: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[10]/div/div', 'Ford Performance Blue'),
-            10: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[11]/div/div', 'Race Red'),
-            11: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[12]/div/div', 'Rapid Red'),
-            12: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[13]/div/div', 'Ruby Red'),
-            13: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[13]/div/div', 'Shadow BLack'),
-            14: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[15]/div/div', 'Twister Orange'),
-            15: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[5]/div/div/div/div[2]/div/fieldset/ul/li[16]/div/div', 'Velocity Blue')
+            0: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Dark Highland Green']", 'Dark Highland Green'),
+            1: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Grabber Lime']", 'Grabber Lime'),
+            2: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Iconic Silver']", 'Iconic Silver'),
+            3: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Ingot Silver']", 'Ingot Silver'),
+            4: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Kona Blue']", 'Kona Blue'),
+            5: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Magnetic']", 'Magnetic'),
+            6: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Need for Green']", 'Need for Green'),
+            7: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Orange Fury']", 'Orange Fury'),
+            8: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Oxford White']", 'Oxford White'),
+            9: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Ford Performance Blue']", 'Ford Performance Blue'),
+            10: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Race Red']", 'Race Red'),
+            11: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Rapid Red']", 'Rapid Red'),
+            12: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Ruby Red']", 'Ruby Red'),
+            13: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Shadow Black']", 'Shadow BLack'),
+            14: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Twister Orange']", 'Twister Orange'),
+            15: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Velocity Blue']", 'Velocity Blue')
         }
         dictionary_iterater(self, exterior_color_selection)
         print("all exterior color selections have been selected")
@@ -825,34 +859,34 @@ class ItemSelectorClass:
 
 #This is a list of all of the possible interior colors for the mustang. Program should loop through and select all of the options in the list (TC F05)
     def interior_color(self):
-        interior_color_select = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[1]')
+        interior_color_select = self.driver.find_element_by_xpath("//div[@data-ng-switch-when='interior_color']")
         print("found interior color drop-down")
         action(self.driver).move_to_element(interior_color_select).click().perform()
         print("interior color drop-down has been selected")
 
         interior_color_selection = {
-            0: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[1]/ul/li[1]/div/div/img', 'Cloth - Ceramic'),
-            1: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[1]/ul/li[2]/div/div/img', 'Cloth - Ebony'),
-            2: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[1]/div/div/img', 'Leather - Ceramic'),
-            3: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[2]/div/div/img', 'Leather - Ebony'),
-            4: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[3]/div/div/img', 'Leather - Ebony with Green Stitch'),
-            5: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[2]/ul/li[4]/div/div/img', 'Leather - Tan'),
-            6: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[3]/ul/li/div/div/img', 'Leather with Alcantra Inserts - Ebony'),
-            7: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[4]/ul/li[1]/div/div/img', 'Leather with Miko Inserts - Ebony'),
-            8: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[4]/ul/li[2]/div/div/img', 'Leather with Miko Inserts - Ebony with Red Stitch'),
-            9: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[4]/ul/li[3]/div/div/img', 'Leather with Miko Inserts - Ebony/Smoke Gray Stitch'),
-            10: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[5]/ul/li[1]/div/div/img', 'Premier Leather - Ebony'),
-            11: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[5]/ul/li[2]/div/div/img', 'Premier Leather - Midnight Blue with Grabber Blue Stitch'),
-            12: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[5]/ul/li[3]/div/div/img', 'Premier Leather - Showstopper Red'),
-            13: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[6]/ul/li/div/div/img', 'RECARO Cloth - Ebony'),
-            14: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[7]/ul/li[1]/div/div/img', 'RECARO Cloth with Miko Inserts - Ebony'),
-            15: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[7]/ul/li[2]/div/div/img', 'RECARO Cloth with Miko Inserts - Ebony with Red Accents'),
-            16: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[8]/ul/li[1]/div/div/img', 'RECARO Leather - Ebony'),
-            17: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[8]/ul/li[2]/div/div/img', 'RECARO Leather - Ebony with Green Stitch'),
-            18: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[8]/ul/li[3]/div/div/img', 'RECARO Leather - Ebony/Smoke Gray Accents'),
-            19: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[9]/ul/li[1]/div/div/img', 'RECARO Premier Leather - Ebony'),
-            20: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[9]/ul/li[2]/div/div/img',  'RECARO Premier Leather - Midnight Blue with Grabber Blue Stitch'),
-            21: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[6]/div/div/div/div[2]/div/fieldset/ul/li[9]/ul/li[3]/div/div/img', 'RECARO Premier Leather - Showstopper Red')
+            0: ("//ul[@aria-labelledby='filter-title-interior-color-0']//li[@data-popover='Ceramnic']", 'Cloth - Ceramic'),
+            1: ("//ul[@aria-labelledby='filter-title-interior-color-0']//li[@data-popover='Ebony']", 'Cloth - Ebony'),
+            2: ("//ul[@aria-labelledby='filter-title-interior-color-1']//li[@data-popover='Ceramnic']", 'Leather - Ceramic'),
+            3: ("//ul[@aria-labelledby='filter-title-interior-color-1']//li[@data-popover='Ebony']", 'Leather - Ebony'),
+            4: ("//ul[@aria-labelledby='filter-title-interior-color-1']//li[@data-popover='Ebony with Green Stitch / Ebony/Green Stitch']", 'Leather - Ebony with Green Stitch'),
+            5: ("//ul[@aria-labelledby='filter-title-interior-color-1']//li[@data-popover='Tan']", 'Leather - Tan'),
+            6: ("//ul[@aria-labelledby='filter-title-interior-color-2']//li[@data-popover='Ebony']", 'Leather with Alcantra Inserts - Ebony'),
+            7: ("//ul[@aria-labelledby='filter-title-interior-color-3']//li[@data-popover='Ebony']", 'Leather with Miko Inserts - Ebony'),
+            8: ("//ul[@aria-labelledby='filter-title-interior-color-3']//li[@data-popover='Ebony']", 'Leather with Miko Inserts - Ebony with Red Stitch'),
+            9: ("//ul[@aria-labelledby='filter-title-interior-color-3']//li[@data-popover='Ebony/Smoke Gray Stitch']", 'Leather with Miko Inserts - Ebony/Smoke Gray Stitch'),
+            10: ("//ul[@aria-labelledby='filter-title-interior-color-4']//li[@data-popover='Ebony']", 'Premier Leather - Ebony'),
+            11: ("//ul[@aria-labelledby='filter-title-interior-color-4']//li[@data-popover='Midnight Blue with Grabber Blue Stitch / Midnight Blue/Grabber Blue Stitch']", 'Premier Leather - Midnight Blue with Grabber Blue Stitch'),
+            12: ("//ul[@aria-labelledby='filter-title-interior-color-4']//li[@data-popover='Showstopper Red']", 'Premier Leather - Showstopper Red'),
+            13: ("//ul[@aria-labelledby='filter-title-interior-color-5']//li[@data-popover='Ebony']", 'RECARO Cloth - Ebony'),
+            14: ("//ul[@aria-labelledby='filter-title-interior-color-6']//li[@data-popover='Ebony with Red Accents / Ebony']", 'RECARO Cloth with Miko Inserts - Ebony'),
+            15: ("//ul[@aria-labelledby='filter-title-interior-color-6']//li[@data-popover='Ebony/Red Accents']", 'RECARO Cloth with Miko Inserts - Ebony with Red Accents'),
+            16: ("//ul[@aria-labelledby='filter-title-interior-color-7']//li[@data-popover='Ebony']", 'RECARO Leather - Ebony'),
+            17: ("//ul[@aria-labelledby='filter-title-interior-color-7']//li[@data-popover='Ebony with Green Stitch / Ebony/Green Stitch']", 'RECARO Leather - Ebony with Green Stitch'),
+            18: ("//ul[@aria-labelledby='filter-title-interior-color-7']//li[@data-popover='Ebony/Smoke Gray Accents']", 'RECARO Leather - Ebony/Smoke Gray Accents'),
+            19: ("//ul[@aria-labelledby='filter-title-interior-color-8']//li[@data-popover='Ebony']", 'RECARO Premier Leather - Ebony'),
+            20: ("//ul[@aria-labelledby='filter-title-interior-color-8']//li[@data-popover='Midnight Blue with Grabber Blue Stitch / Midnight Blue/Grabber Blue Stitch']",  'RECARO Premier Leather - Midnight Blue with Grabber Blue Stitch'),
+            21: ("//ul[@aria-labelledby='filter-title-interior-color-8']//li[@data-popover='Showstopper Red']", 'RECARO Premier Leather - Showstopper Red')
         }
         dictionary_iterater(self, interior_color_selection)
         print("all interior color selections have been selected")
