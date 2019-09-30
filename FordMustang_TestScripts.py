@@ -125,7 +125,6 @@ def Test_G03():
 
 #Survey_Handler_Method()
 
-Test_A01_A06()
 '''Test_B01()
 Test_C01()
 Test_C02()

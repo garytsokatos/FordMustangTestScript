@@ -569,22 +569,21 @@ class ItemSelectorClass:
 
 #This is a list of all of the possible preferences for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_your_preferences(self):
-        your_preferences_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]')
-        print("found your preferences button")
-        action(self.driver).move_to_element(your_preferences_button).click().perform()
+        your_preferences_button = wait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Preferences')]")))
+        your_preferences_button.click()
         print("your preferences button has been selected")
 
         your_preferences_selection = {
-            0: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[2]/div/div[1]/div[1]/div/span', '2.3L EcoBoost® Engine'),
-            1: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[3]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8 Engine'),
-            2: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[4]/div/div[1]/div[1]/div/span', '2.3L High Performance EcoBoost® Engine'),
-            3: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[5]/div/div[1]/div[1]/div/span', '5.2L Ti-VCT V8 with Flat Plane Crank Engine'),
-            4: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[6]/div/div[1]/div[1]/div/span', '5.0L Ti-VCT V8 Engine (BULLITT™)'),
-            5: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[1]/div[7]/div/div[1]/div[1]/div/span', '5.2L Supercharged Cross Plane Crank V8'),
-            6: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[2]/div/div[1]/div[1]/div/span', 'TREMEC 7-Speed Dual Clutch (DCT)'),
-            7: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[3]/div/div[1]/div[1]/div/span', '10-Speed SelectShift® Automatic Transmission'),
-            8: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[4]/div/div[1]/div[1]/div/span', '6-Speed Manual Transmission'),
-            9: ('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[4]/div[2]/div[2]/div[5]/div/div[1]/div[1]/div/span', '6-Speed Manual Transmission')
+            0: ('//div[starts-with(@aria-label, "2.3L EcoBoost")]', '2.3L EcoBoost® Engine'),
+            1: ('//div[starts-with(@aria-label, "5.0L Ti-VCT V8 Engine")]', '5.0L Ti-VCT V8 Engine'),
+            2: ('//div[starts-with(@aria-label, "2.3L High Performance")]', '2.3L High Performance EcoBoost® Engine'),
+            3: ('//div[starts-with(@aria-label, "5.2L Ti-VCT V8 with Flat Plane Crank Engine")]', '5.2L Ti-VCT V8 with Flat Plane Crank Engine'),
+            4: ('//div[starts-with(@aria-label, "5.0L Ti-VCT V8 Engine (BULLITT")]', '5.0L Ti-VCT V8 Engine (BULLITT™)'),
+            5: ('//div[starts-with(@aria-label, "5.2L Supercharged Cross Plane Crank V8")]', '5.2L Supercharged Cross Plane Crank V8'),
+            6: ('//div[starts-with(@aria-label, "TREMEC 7-Speed Dual Clutch")]', 'TREMEC 7-Speed Dual Clutch (DCT)'),
+            7: ('//div[starts-with(@aria-label, "10-Speed SelectShift")]', '10-Speed SelectShift® Automatic Transmission'),
+            8: ('//div[starts-with(@aria-label, "6-Speed Manual Transmission")]', '6-Speed Manual Transmission')
         }
         dictionary_iterater(self, your_preferences_selection)
         print("all preferences have been selected")
