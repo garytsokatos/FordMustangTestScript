@@ -68,6 +68,7 @@ def Test_D01():
         #TestModule.special_offers()
         #TestModule.trade_in_value()
         TestModule.search_inventory()
+        TestModule._continue_()
 
 def Test_E01():
 
@@ -126,15 +127,15 @@ def Test_G03():
 #Survey_Handler_Method()
 
 Test_A01_A06()
-'''Test_B01()
+Test_B01()
 Test_C01()
 Test_C02()
 Test_C03()
 Test_C04()
-#Test_C05()
-#Test_D01()'''
-Test_E01()
-'''Test_F01()
+Test_C05()
+Test_D01()
+'''Test_E01()
+Test_F01()
 Test_F02()
 Test_F03()
 Test_F04()
