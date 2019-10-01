@@ -26,16 +26,31 @@ import time
 import random
 
 #this will iterate through a dictionary by grabbing an xpath and clicking on the button, and it will print out the button that was selected:
-def dictionary_iterater(self, dictionary):
+def dictionary_iterater_build_your_own(self, dictionary):
     try:
         for el in dictionary:
             #button = self.driver.find_element_by_xpath(dictionary[el][0])
             button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
-            print("Found " + dictionary[el][1])
-            time.sleep(2)
+            #print("Found " + dictionary[el][1])
             button.click()
-            print("\t" + dictionary[el][1] + " has been selected")
+            time.sleep(2)
             self.change_requirement()
+            print("\t" + dictionary[el][1] + " has been selected")
+
+    except Exception as err:
+        print(err)
+        return
+
+def dictionary_iterater_lufify(self, dictionary):
+    try:
+        for el in dictionary:
+            #button = self.driver.find_element_by_xpath(dictionary[el][0])
+            button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
+            #print("Found " + dictionary[el][1])
+            button.click()
+            time.sleep(2)
+            print("\t" + dictionary[el][1] + " has been selected")
+
     except Exception as err:
         print(err)
         return
@@ -57,20 +72,35 @@ class ItemSelectorClass:
 
     def open_browser(self):
         self.driver.get("https://www.ford.com/")
-        print('Loaded Ford.com main page.')
+        print('Loaded Ford.com main page')
 
         try:
             popupFrame = wait(self.driver, 2).until(EC.element_to_be_clickable((By.ID, 'IPerceptionsEmbed')))
-            print('Identified Survey Splash Screen. ')
+            print('\tIdentified Survey Splash Screen')
             self.driver.switch_to.frame(popupFrame)
-            print('Switched to Survey Page splash screen.')
+            print('\tSwitched to Survey Page splash screen')
             no_survey_button = wait(self.driver, 2).until(
                 EC.element_to_be_clickable((By.XPATH, "//*[@class='btn btn-no']")))
             no_survey_button.click()
-            print('Clicked No button to Survey Splash Screen.')
+            print('\tClicked No button to Survey Splash Screen')
             self.driver.switch_to.default_content()
         except:
-            print('No Survey Splash Screen loaded. Proceeding to next test.')
+            print('\tNo Survey Splash Screen loaded. Proceeding to next test')
+
+    '''def new_window(self):
+        executor_url = self.driver.command_executor._url
+        session_id - self.driver.session_id()
+
+        self.driver.get("https://www.ford.com/")
+
+        print(session_id)
+        print(executor_url)
+
+        driver2 = webdriver.Remote(command_executor=executor_url, desired_capabilities={})
+        driver2.session_id = session_id
+        print(driver2.current_url)
+        return'''
+
 
     def loadtime(self):
         navigationStart = self.driver.execute_script("return window.performance.timing.navigationStart")
@@ -90,9 +120,9 @@ class ItemSelectorClass:
         try:
             change_requirement_yes = self.driver.find_element_by_xpath("//a[contains(text(), 'Yes')]")
             action(self.driver).move_to_element(change_requirement_yes).click().perform()
-            print("Found and selected Yes button from Change Requirement")
+            print("\t\tFound and selected Yes button from Change Requirement")
         except:
-            print("Change requirement window not found ")
+            print("\t\tChange requirement window not found ")
 
     def random_selection(self):
         id, color = random.choice(list(id.items()))
@@ -101,91 +131,63 @@ class ItemSelectorClass:
         print("\t" + id[id]['color'] + " has been selected")
         self.change_requirement()
 
-
-
-
-
-
 #Selecting the buttons on the home page to initiate the customization process flow (Test Cases A01 - A06)
     def get_to_car_build(self):
+        print("***Beginning Test A01***")
         vehicles_home_page_button = self.driver.find_element_by_class_name('dropdown.dropdown-item')
-        print("found vehicles")
-        #action(self.driver).move_to_element(vehicles_home_page_button).click().perform()
         vehicles_home_page_button.click()
         print('\tvehicles button on home page has been found and selected')
-        print('\t\t***Test A01 has passed***')
+        print('***Test A01 has passed***')
 
-        #time.sleep(3)
-
+        print("***Beginning Test A02***")
         cars_home_page_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Cars']")))
-        print("found cars")
-        #action(self.driver).move_to_element(cars_home_page_button).click().perform()
         cars_home_page_button.click()
         print('\tcars button on home page has been found and selected')
-        print('\t\t***Test A02 has passed***')
+        print('***Test A02 has passed***')
 
-        #time.sleep(3)
-
-
+        print("***Beginning Test A03***")
         mustang_button_2020 = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "2020 Mustang")]')))
-        print("found 2020 mustang")
-        #action(self.driver).move_to_element(mustang_button_2020).click().perform()
         mustang_button_2020.click()
         print('\t2020 mustang button on home page has been found and selected')
-        print('\t\t***Test A03 has passed***')
+        print('***Test A03 has passed***')
 
-        #time.sleep(3)
-
+        print("***Beginning Test A04***")
         build_and_price_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Press here for information on 2020 Ford Mustang Build and Price']")))
-        print("found build & price")
         build_and_price_button.click()
         print('\tbuild & price button on home page has been found and selected')
-        print('\t\t***Test A04 has passed***')
+        print('***Test A04 has passed***')
 
-        #time.sleep(3)
-
-        print("looking for zip code field")
-        #time.sleep(2)
+        print("***Beginning Test A05***")
+        print("\tlooking for zip code field")
         select_zip_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, 'postal-input')))
-        print("found enter zip field")
         action(self.driver).move_to_element(select_zip_button).click().send_keys('60448').perform()
         print('\tzip code field has been found, selected, and has had a zip code entered')
 
-        #time.sleep(2)
-
         enter_zip_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Enter")]')))
-        print("found enter")
         action(self.driver).move_to_element(enter_zip_button).click().perform()
         print('\tzip code enter button has been found and selected')
-        print('\t\t***Test A05 has passed***')
+        print('***Test A05 has passed***')
+        return
 
-#TODO make this a method
+    def build_your_own(self):
+        print("***Beginning Test A06***")
         build_your_own_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Build Your Own")]')))
-        print("found build your own")
-        #time.sleep(2)
         build_your_own_button.click()
         print('\tbuild your own button has been found and selected')
-        print('\t\t***Test A06 has passed***')
+        print('***Test A06 has passed***')
         return
 
 #Setting up the mustang model to be tested, includes which model and which option of performance (Test Case B01)
     def choose_your_model_convertible(self):
-        #time.sleep(2)
         convertible_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, "tech-list-price-ecoboostconvertible")))
-        print("found convertible")
         convertible_button.click()
         print('\tconvertible button has been found and selected')
 
-        #time.sleep(2)
 #TODO: Come back to this element and see if we can find a less brittle way of grabbing it. This selection method is the best I've found given the way its coded, but I would like to return to it if time allows. - Cheyanne
         convertible_image = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//img[@src='//build.ford.com/dig/Ford/Mustang/2020/HD-TILE/Image[|Ford|Mustang|2020|1|1.|100A.P8U..PQ..882.~VIRTUALPKGPART_D5HAB_6.~VIRTUALPKGPART_HNAAJ_7.LTS.CON.~VIRTUALPKGPART_AACAA_16.~VIRTUALPKGPART_AB2AA_18.~VIRTUALPKGPART_D17AA_21.~VIRTUALPKGPART_D2YFY_22.SYN.86C.453.64A.43S.MST.891.ANT.LRS.CLO.99H.RWD.44X.EBST.TDP.LESS.12A.13D.14L.14A.58A.2020 P8U FORD.]/EXT/1/vehicle.png']")))
-        print("found configure")
         convertible_image.click()
         print('\tconfigure button has been found and selected')
-        print('\t\t***Test B01 has passed***')
         return
-
-    #time.sleep(10)
 
 #Selecting all possible paint options in the paint type category (Test Case C01)
     def paint_type(self):
@@ -200,7 +202,7 @@ class ItemSelectorClass:
             7: ("//div[contains(text(), 'Kona Blue')]",  'Kona Blue' ),
             8: ("//div[contains(text(), 'Twister Orange')]",  'Twister Orange' )
         }
-        dictionary_iterater(self, paint_selection)
+        dictionary_iterater_build_your_own(self, paint_selection)
         return
 
 #Selecting all possible tape stripe options in the paint type category (Test Case C01)
@@ -211,7 +213,7 @@ class ItemSelectorClass:
             2: ("//div[contains(text(), 'Less Tape Stripe')]", 'Less Tape Stripe'),
         }
         time.sleep(1)
-        dictionary_iterater(self, tape_stripe_selection)
+        dictionary_iterater_build_your_own(self, tape_stripe_selection)
         self.change_requirement()
         print("\t\tall tape stripes have been selected")
         return
@@ -222,7 +224,7 @@ class ItemSelectorClass:
             0:  ("//div[contains(text(), 'Ebony Racing Stripe')]", 'Ebony Tape Stripe'),
             1:  ("//div[contains(text(), 'Less Racing Stripe')]", 'Less Racing Stripe'),
         }
-        dictionary_iterater(self, racing_stripe_selection)
+        dictionary_iterater_build_your_own(self, racing_stripe_selection)
 
         print("\t\tall racing stripes have been selected")
         return
@@ -234,10 +236,9 @@ class ItemSelectorClass:
             1:  ("//div[contains(text(), 'Silver Hood Stripe')]", 'Silver Hood Stripe'),
             2:  ("//div[contains(text(), 'Ebony Hood Stripe')]", 'Ebony Hood Stripe')
         }
-        dictionary_iterater(self, hood_side_stripe_selection)
+        dictionary_iterater_build_your_own(self, hood_side_stripe_selection)
         self.change_requirement()
         print("\t\tall hood and side stripes have been selected")
-        print("\t\t\t***Test Case C01 has passed***")
         return
 
 #Selecting all powertrain drop-down arrow to open the powertrain category (Test Case C02)
@@ -245,8 +246,6 @@ class ItemSelectorClass:
         powertrain_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Powertrain']")))
         powertrain_select.click()
         print("powertrain drop-down has been selected")
-        self.change_requirement()
-
         return
 
 #Selecting all possible engine options in the powertrain category (Test Case C02)
@@ -255,7 +254,7 @@ class ItemSelectorClass:
             0:  ("//span[contains(text(), '2.3L High Performance EcoBoost® Engine')]", '2.3L High Performance EcoBoost® Engine'),
             1:  ("//span[contains(text(), '2.3L EcoBoost® Engine')]", '2.3L EcoBoost® Engine')
         }
-        dictionary_iterater(self, engine_selection)
+        dictionary_iterater_build_your_own(self, engine_selection)
         self.change_requirement()
         return
 
@@ -265,17 +264,15 @@ class ItemSelectorClass:
             0: ("//span[contains(text(), '10-Speed SelectShift® Automatic Transmission')]", '10-Speed SelectShift® Automatic Transmission'),
             1: ("//span[contains(text(), '6-Speed Manual Transmission')]", '6-Speed Manual Transmission')
         }
-        dictionary_iterater(self, transmissions_selection)
+        dictionary_iterater_build_your_own(self, transmissions_selection)
         self.change_requirement()
         print("\tAll engines and transmissions have been selected")
-        print("\t\t***Test Case C02 has paseed***")
         return
 
 #Selecting the packages drop-down arrow to open the packages category (Test Case C03)
     def packages(self):
         packages_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Packages']")))
         action(self.driver).move_to_element(packages_select).click().perform()
-        self.change_requirement()
         print("packages drop-down has been selected")
         return
 
@@ -285,9 +282,10 @@ class ItemSelectorClass:
             0: ("//span[contains(text(), '101A Equipment Group')]", '101A Equipment Group'),
             1: ("//span[contains(text(), '100A Equipment Group')]", '100A Equipment Group')
         }
-        dictionary_iterater(self, equipment_group_selection)
+        dictionary_iterater_build_your_own(self, equipment_group_selection)
         self.change_requirement()
         return
+
 #TODO Consistently running into click intercept errors with this method. Revisit to find a workaround.
 #Selecting all possible exterior package options in the packages category (Test Case C03)
     def exterior_package(self):
@@ -296,7 +294,7 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), '2.3L High Performance Package')]", '2.3L High Performance Package'),
             2: ("//span[contains(text(), 'Wheel & Stripe Package')]", 'Wheel & Stripe Package')
         }
-        dictionary_iterater(self, exterior_package_selection)
+        dictionary_iterater_build_your_own(self, exterior_package_selection)
         self.change_requirement()
         return
 
@@ -307,9 +305,7 @@ class ItemSelectorClass:
         add = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[contains(text(), "Add")]')))
         add.click()
         print("\tford safe and smart package has been selected")
-
         print("\t\tall packages have been selected")
-        print("\t\t\t***Test Case C03 has passed***")
         return
 
 #Selecting exterior drop-down arrow to open the exterior category (Test Case C04)
@@ -332,7 +328,7 @@ class ItemSelectorClass:
             6: ("//span[contains(text(), '19-Inch x 9-Inch Luster Nickel-painted Forged Aluminum Wheels')]", '19-Inch x 9-Inch Luster Nickel-painted Forged Aluminum Wheels'),
             7: ("//span[contains(text(), '19-Inch x 9-Inch Machined-Face Aluminum Wheels with Low-Gloss Ebony Black-Painted Pockets')]", '19-Inch x 9-Inch Machined-Face Aluminum Wheels with Low-Gloss Ebony Black-Painted Pockets')
         }
-        dictionary_iterater(self, wheel_type_selection)
+        dictionary_iterater_build_your_own(self, wheel_type_selection)
 
         print("\tall wheel types have been selected")
         return
@@ -348,9 +344,8 @@ class ItemSelectorClass:
             5: ("//span[contains(text(), 'Rear Spoiler – Blade Decklid')]", 'Rear Spoiler – Blade Decklid'),
             6: ("//span[contains(text(), 'Remote Start System')]", 'Remote Start System'),
         }
-        dictionary_iterater(self, exterior_options_selection)
+        dictionary_iterater_build_your_own(self, exterior_options_selection)
         print("\tall exterior options have been selected")
-
         return
 
 #Selecting all possible tire type options in the exterior category (Test Case C04)
@@ -361,7 +356,7 @@ class ItemSelectorClass:
             2: ( "//span[contains(text(), '255/40R19 Summer-Only Tires')]", '255/40R19 Summer-Only Tires'),
             3: ( "//span[contains(text(), '255/40R19 W-Rated Tires')]", '255/40R19 W-Rated Tires')
         }
-        dictionary_iterater(self, tire_type_selection)
+        dictionary_iterater_build_your_own(self, tire_type_selection)
         print("\tall tire types have been selected")
         return
 
@@ -372,16 +367,13 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), '3.31 Limited Slip Rear Axle')]", '3.31 Limited Slip Rear Axle'),
             2: ("//span[contains(text(), '3.55 Limited Slip Rear Axle')]", '3.55 Limited Slip Rear Axle')
         }
-        dictionary_iterater(self, rear_axle_selection)
-
+        dictionary_iterater_build_your_own(self, rear_axle_selection)
         print("\tall tire types have been selected")
-        print("\t\t***Test Case C04 has passed***")
         return
 
 #Selecting interior drop-down arrow to open the interior category (Test Case C05)
     def interior(self):
         interior_select = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Interior']")))
-        print("found interior select")
         action(self.driver).move_to_element(interior_select).click().perform()
         print("interior drop-down has been selected")
         return
@@ -389,12 +381,10 @@ class ItemSelectorClass:
 #Selecting all possible cloth options in the interior category (Test Case C05)
     def cloth(self):
         ceramic = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Ceramic ']")))
-        print("found ceramic cloth")
         action(self.driver).move_to_element(ceramic).click().perform()
         print("ceramic cloth has been selected")
 
         ebony = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@aria-label='Ebony ']")))
-        print("found ebony cloth")
         action(self.driver).move_to_element(ebony).click().perform()
         print("ebony cloth has been selected")
         return
@@ -408,7 +398,7 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), 'Adaptive Cruise Control')]", 'Adaptive Cruise Control'),
             2: ("//span[contains(text(), 'Premium Floor Liners Front and Rear')]", 'Premium Floor Liners Front and Rear')
         }
-        dictionary_iterater(self, rear_axle_selection)
+        dictionary_iterater_build_your_own(self, rear_axle_selection)
         self.change_requirement()
         print("\tall interior options have been selected")
         return
@@ -419,7 +409,7 @@ class ItemSelectorClass:
             0: ("//span[contains(text(), 'AM/FM Stereo with MP3 Capability and Six (6) Speakers')]", 'AM/FM Stereo with MP3 Capability and Six (6) Speakers'),
             1: ("//span[contains(text(), 'Nine (9) Speaker Sound System with Amplifier')]", 'Nine (9) Speaker Sound System with Amplifier')
         }
-        dictionary_iterater(self, radio_selection)
+        dictionary_iterater_build_your_own(self, radio_selection)
         print("\tall radio types have been selected")
         return
 
@@ -431,11 +421,11 @@ class ItemSelectorClass:
             2: ("//span[contains(text(), 'SYNC® 3')]", '2SYNC® 3'),
             3: ("//span[contains(text(), 'Voice-Activated Touchscreen Navigation System with SiriusXM® Traffic and Travel Link')]", 'Voice-Activated Touchscreen Navigation System with SiriusXM® Traffic and Travel Link')
         }
-        dictionary_iterater(self, audio_upgrade_selection)
+        dictionary_iterater_build_your_own(self, audio_upgrade_selection)
 
         print("\tall audio upgrade options have been selected")
-        print("\t\t\t***Test Case C05 has passed***")
         return
+
 #TODO element selector not working
 #Selecting the Summary button after Test Cases C01 - C05 have been completed
     def summary(self):
@@ -490,10 +480,10 @@ class ItemSelectorClass:
 #Test Case Category E, make sure to set test case category A in the test script as a precondition (TC D01.1) after Test Cases C01 - C05 have been completed
     def let_us_find_it_for_you_select(self):
         time.sleep(5)
-        let_us_find_it_for_you_button = self.driver.find_element_by_xpath('//span[@contains(text(), "Let Us Find It For You")]')
-        print("found let us find it for you button")
+        #let_us_find_it_for_you_button = self.driver.find_element_by_xpath('//span[@contains(text(), "Let Us Find It For You")]')
+        let_us_find_it_for_you_button = self.driver.find_element_by_xpath("//div[@class='cyp-ctas col-xs-12 col-sm-6 lufify']")
         let_us_find_it_for_you_button.click()
-        print("let us find it for you button has been selected")
+        print("\tlet us find it for you button has been selected")
 
 #TODO clean up full xpath
 #This is a list of all of the possible 2020 Mustang models. Program should loop through and select all of the options in the list
@@ -511,16 +501,15 @@ class ItemSelectorClass:
             9: ("(//div[@role='checkbox'][@aria-label='Shelby GT500®'])", 'Shelby GT500®'),
             10: ("(//div[@role='checkbox'][@aria-label='Shelby® GT350R'])", 'Shelby® GT350R')
         }
-        dictionary_iterater(self, your_model_selection)
-        print("all models have been selected")
+        dictionary_iterater_lufify(self, your_model_selection)
+        print("\t\tall models have been selected")
         return
 
 #This is a list of all of the possible exterior colors for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_exterior_colors(self):
         exterior_colors_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[2]')
-        print("found exterior colors button")
         action(self.driver).move_to_element(exterior_colors_button).click().perform()
-        print("exterior colors button has been selected")
+        print("\texterior colors button has been selected")
 
         exterior_colors_selection = {
             0: ("//div[contains(text(), 'Shadow Black')]", 'Shadow Black'),
@@ -537,15 +526,14 @@ class ItemSelectorClass:
             11: ("//div[contains(text(), 'Twister Orange')]", 'Twister Orange'),
             12: ("//div[contains(text(), 'Shadow Black')]", 'Shadow Black')
         }
-        dictionary_iterater(self, exterior_colors_selection)
+        dictionary_iterater_lufify(self, exterior_colors_selection)
         return
 
 #This is a list of all of the possible interior colors for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_interior_colors(self):
         interior_colors_button = self.driver.find_element_by_xpath('/html/body/div[8]/div[6]/div/div/div/div/div/div/div/div[1]/div[3]/div/div[2]/div[3]')
-        print("found interior colors button")
         action(self.driver).move_to_element(interior_colors_button).click().perform()
-        print("interior colors button has been selected")
+        print("\tinterior colors button has been selected")
 
         interior_colors_selection = {
             0: ("//div[contains(text(), 'Ebony')]", 'Ebony'),
@@ -557,7 +545,7 @@ class ItemSelectorClass:
             6: ("//div[contains(text(), 'Ebony w/Smoke Gray Accents')]",  'Ebony w/Smoke Gray Accents'),
             7: ("//div[contains(text(), 'Ebony w/Red Accents')]",  'Ebony w/Red Accents')
         }
-        dictionary_iterater(self, interior_colors_selection)
+        dictionary_iterater_lufify(self, interior_colors_selection)
         return
 
 #This is a list of all of the possible preferences for the mustang. Program should loop through and select all of the options in the list
@@ -565,7 +553,7 @@ class ItemSelectorClass:
         your_preferences_button = wait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Preferences')]")))
         your_preferences_button.click()
-        print("your preferences button has been selected")
+        print("\tyour preferences button has been selected")
 
         your_preferences_selection = {
             0: ('//div[starts-with(@aria-label, "2.3L EcoBoost")]', '2.3L EcoBoost® Engine'),
@@ -578,16 +566,15 @@ class ItemSelectorClass:
             7: ('//div[starts-with(@aria-label, "10-Speed SelectShift")]', '10-Speed SelectShift® Automatic Transmission'),
             8: ('//div[starts-with(@aria-label, "6-Speed Manual Transmission")]', '6-Speed Manual Transmission')
         }
-        dictionary_iterater(self, your_preferences_selection)
-        print("all preferences have been selected")
+        dictionary_iterater_lufify(self, your_preferences_selection)
+        print("\t\tall preferences have been selected")
         return
 
 #This is a list of all of the possible optional upgrades for the mustang. Program should loop through and select all of the options in the list
     def let_us_find_it_for_you_optional_upgrades(self):
         optional_upgrades_button = self.driver.find_element_by_xpath("//div[contains(text(), 'Optional Upgrades')]")
-        print("found optional upgrades button")
         action(self.driver).move_to_element(optional_upgrades_button).click().perform()
-        print("optional upgrades button has been selected")
+        print("\toptional upgrades button has been selected")
 
         optional_upgrades_selection = {
             0: ("(//div[@role='checkbox'][@aria-label='SYNC® 3'])", 'SYNC® 3'),
@@ -597,17 +584,16 @@ class ItemSelectorClass:
             4: ("(//div[@role='checkbox'][@aria-label='2.3L High Performance Package'])", '2.3L High Performance Package'),
             5: ("(//div[@role='checkbox'][@aria-label='Black Accent Package'])", 'Black Accent Package')
         }
-        dictionary_iterater(self, optional_upgrades_selection)
-        print("all optional upgrades have been selected")
+        dictionary_iterater_lufify(self, optional_upgrades_selection)
+        print("\t\tall optional upgrades have been selected")
         return
 
 #This is selecting the continue button (TC F01), done after Test Case D01, to begin the Search Inventory functionality
     def _continue_(self):
         time.sleep(2)
         continue_button = self.driver.find_element_by_xpath("//div[@class='search-inventory']//button[contains(text(), 'Continue')]")
-        print("found continue button")
         action(self.driver).move_to_element(continue_button).click().perform()
-        print("continue button has been selected")
+        print("\t\tcontinue button has been selected")
         return
 
 #Upon entering a distance, ford will return a list of dealers within the designated mile radius the user selects
@@ -816,7 +802,7 @@ class ItemSelectorClass:
             7: ("//ul[@aria-labelledby='filter-title-power-1']//span[@id='check-power-1']", 'Manual'),
             8: ("//ul[@aria-labelledby='filter-title-power-2']//span[@id='check-power-0']", 'Rear-Wheel Drive')
         }
-        dictionary_iterater(self, power_and_handling_select)
+        dictionary_iterater_lufify(self, power_and_handling_select)
         print("all power and handling selections have been selected")
         return
 
@@ -845,7 +831,7 @@ class ItemSelectorClass:
             14: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Twister Orange']", 'Twister Orange'),
             15: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Velocity Blue']", 'Velocity Blue')
         }
-        dictionary_iterater(self, exterior_color_selection)
+        dictionary_iterater_lufify(self, exterior_color_selection)
         print("all exterior color selections have been selected")
         return
 
@@ -880,7 +866,7 @@ class ItemSelectorClass:
             20: ("//ul[@aria-labelledby='filter-title-interior-color-8']//li[@data-popover='Midnight Blue with Grabber Blue Stitch / Midnight Blue/Grabber Blue Stitch']",  'RECARO Premier Leather - Midnight Blue with Grabber Blue Stitch'),
             21: ("//ul[@aria-labelledby='filter-title-interior-color-8']//li[@data-popover='Showstopper Red']", 'RECARO Premier Leather - Showstopper Red')
         }
-        dictionary_iterater(self, interior_color_selection)
+        dictionary_iterater_lufify(self, interior_color_selection)
         print("all interior color selections have been selected")
         return
 
@@ -898,7 +884,7 @@ class ItemSelectorClass:
             3: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[3]/span/span[1]', '19.5" Wheels'),
             4: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[5]/span/span[1]', '20" Wheels'),
         }
-        dictionary_iterater(self, exterior_features_selection)
+        dictionary_iterater_lufify(self, exterior_features_selection)
         print("all exterior features selections have been selected")
         return
  #Selecting the "Let Us Find Your Vehicle" button at the bottom of the Search Inventory Page (TC F07)
