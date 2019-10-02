@@ -44,6 +44,8 @@ def Test_C01():
 def Test_C02():
 
         print("***Beginning Test C02***")
+        TestModule.zip_code_on_car_customization()
+        time.sleep(2)
         TestModule.powertrain()
         TestModule.engine()
         TestModule.transmissions()
@@ -52,6 +54,7 @@ def Test_C02():
 def Test_C03():
 
         print("***Beginning Test C03***")
+        TestModule.zip_code_on_car_customization()
         TestModule.packages()
         TestModule.equipment_group()
         TestModule.exterior_package()
@@ -85,7 +88,8 @@ def Test_D01():
         #TestModule.special_offers()
         #TestModule.trade_in_value()
         TestModule.search_inventory()
-        TestModule._continue_()
+        time.sleep(2)
+        #TestModule._continue_()
         print("***Test D01 has passed***")
 
 def Test_E01():
@@ -133,10 +137,11 @@ def Test_F01():
 def Test_F02():
 
         print("***Beginning Test F02***")
+        time.sleep(2)
         TestModule.change_dealer_mileage()
         TestModule.change_dealer_zipcode()
-        TestModule.select_from_list_of_dealers()
-        TestModule.body_style()
+        #TestModule.select_from_list_of_dealers()
+        #TestModule.body_style()
         TestModule.select_model()
         TestModule.year()
         print("***Test F02 has passed***")
@@ -191,22 +196,9 @@ def Test_G03():
 
 Survey_Handler_Method()
 Test_A01_A05()
-Test_E01()
-'''Test_E02()
-Test_E03()
-Test_E04()
-Test_E05()'''
-Test_E06()
-print("closing browser")
-time.sleep(5)
-TestModule.close_browser()
-print("opening browser")
-TestModule.open_browser()
-Survey_Handler_Method()
-Test_A01_A05()
 Test_A06()
 Test_B01()
-'''Test_C01()
+Test_C01()
 Test_C02()
 Test_C03()
 Test_C04()
@@ -221,7 +213,17 @@ Test_F06()
 Test_F07()
 Test_G01()
 Test_G02()
-Test_G03()'''
+Test_G03()
+print("opening new page")
+time.sleep(5)
+Survey_Handler_Method()
+Test_A01_A05()
+Test_E01()
+Test_E02()
+Test_E03()
+Test_E04()
+Test_E05()
+Test_E06()
 print("closing browser")
 time.sleep(5)
 TestModule.close_browser()
