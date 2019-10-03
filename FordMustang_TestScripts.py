@@ -26,12 +26,14 @@ def Test_A06():
 
         TestModule.build_your_own()
 
+#Vehicle Model Selection - Convertible
 def Test_B01():
 
         print("***Beginning Test B01***")
         TestModule.choose_your_model_convertible()
         print('***Test B01 has passed***')
 
+#Vehicle Model Customization - Paint Type
 def Test_C01():
 
         print("***Beginning Test C01***")
@@ -41,6 +43,7 @@ def Test_C01():
         TestModule.hood_and_side_stripes()
         print("***Test Case C01 has passed***")
 
+#Vehicle Model Customization - Powertrain
 def Test_C02():
 
         print("***Beginning Test C02***")
@@ -51,6 +54,7 @@ def Test_C02():
         TestModule.transmissions()
         print("***Test Case C02 has passed***")
 
+#Vehicle Model Customization - Packages
 def Test_C03():
 
         print("***Beginning Test C03***")
@@ -61,6 +65,7 @@ def Test_C03():
         TestModule.interior_package()
         print("***Test Case C03 has passed***")
 
+#Vehicle Model Customization - Exterior
 def Test_C04():
 
         print("***Beginning Test C04***")
@@ -71,6 +76,7 @@ def Test_C04():
         TestModule.rear_axle_ratios()
         print("***Test Case C04 has passed***")
 
+#Vehicle Model Customization - Interior
 def Test_C05():
 
         print("***Beginning Test C05***")
@@ -81,47 +87,55 @@ def Test_C05():
         TestModule.audio_upgrade()
         print("***Test Case C05 has passed***")
 
+#Post Customization - Summary
 def Test_D01():
 
         print("***Beginning Test D01***")
         TestModule.summary()
-        #TestModule.special_offers()
-        #TestModule.trade_in_value()
+        TestModule.get_internet_price()
+        TestModule.special_offers()
+        TestModule.trade_in_value()
         TestModule.search_inventory()
         time.sleep(2)
         #TestModule._continue_()
         print("***Test D01 has passed***")
 
+#Let Us Find It For You - Select
 def Test_E01():
 
         print("***Beginning Test E01***")
         TestModule.let_us_find_it_for_you_select()
         print("***Test E01 has passed***")
 
+#Let Us Find It For You - Your Model
 def Test_E02():
 
         print("***Beginning Test E02***")
         TestModule.let_us_find_it_for_you_your_model()
         print("***Test E02 has passed***")
 
+#Let Us Find It For You - Exterior Colors
 def Test_E03():
 
         print("***Beginning Test E03***")
         TestModule.let_us_find_it_for_you_exterior_colors()
         print("***Test E03 has passed***")
 
+#Let Us Find It For You - Interior Colors
 def Test_E04():
 
         print("***Beginning Test E04***")
         TestModule.let_us_find_it_for_you_interior_colors()
         print("***Test E04 has passed***")
 
+#Let Us Find It For You - Your Preferences
 def Test_E05():
 
         print("***Beginning Test E05***")
         TestModule.let_us_find_it_for_you_your_preferences()
         print("***Test E05 has passed***")
 
+#Let Us Find It For You - Optional Upgrades
 def Test_E06():
 
         print("***Beginning Test E06***")
@@ -146,7 +160,7 @@ def Test_F02():
         TestModule.year()
         print("***Test F02 has passed***")
 
-def Test_F03():
+def  Test_F03():
 
         print("***Beginning Test F03***")
         TestModule.power_and_handling()
@@ -204,7 +218,7 @@ Test_C03()
 Test_C04()
 Test_C05()
 Test_D01()
-Test_F01()
+'''Test_F01()
 Test_F02()
 Test_F03()
 Test_F04()
@@ -213,7 +227,7 @@ Test_F06()
 Test_F07()
 Test_G01()
 Test_G02()
-Test_G03()
+Test_G03()'''
 print("opening new page")
 time.sleep(5)
 Survey_Handler_Method()

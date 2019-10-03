@@ -65,7 +65,7 @@ class ItemSelectorClass:
         self.ErrorCount = 0
         self.driver.get("https://www.ford.com/")
         #self.driver.get("https://shop.ford.com/build/mustang/#/config/Config%5B%7CFord%7CMustang%7C2020%7C1%7C1.%7C100A.P8U.....CON.MST.~YZKAA.EBST.LESS.%5D")
-        #self.driver.maximize_window()
+        self.driver.maximize_window()
         #self.wait = WebDriverWait(self.driver, 10)
         #self.driver.implicitly_wait(1)
         #self.driver.quit()
@@ -86,20 +86,6 @@ class ItemSelectorClass:
             self.driver.switch_to.default_content()
         except:
             print('\tNo Survey Splash Screen loaded. Proceeding to next test')
-
-    '''def new_window(self):
-        executor_url = self.driver.command_executor._url
-        session_id - self.driver.session_id()
-
-        self.driver.get("https://www.ford.com/")
-
-        print(session_id)
-        print(executor_url)
-
-        driver2 = webdriver.Remote(command_executor=executor_url, desired_capabilities={})
-        driver2.session_id = session_id
-        print(driver2.current_url)
-        return'''
 
 
     def loadtime(self):
@@ -200,10 +186,16 @@ class ItemSelectorClass:
         convertible_button.click()
         print('\tconvertible button has been found and selected')
 
-#TODO: Come back to this element and see if we can find a less brittle way of grabbing it. This selection method is the best I've found given the way its coded, but I would like to return to it if time allows. - Cheyanne
-        convertible_image = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//img[@src='//build.ford.com/dig/Ford/Mustang/2020/HD-TILE/Image[|Ford|Mustang|2020|1|1.|100A.P8U..PQ..882.~VIRTUALPKGPART_D5HAB_6.~VIRTUALPKGPART_HNAAJ_7.LTS.CON.~VIRTUALPKGPART_AACAA_16.~VIRTUALPKGPART_AB2AA_18.~VIRTUALPKGPART_D17AA_21.~VIRTUALPKGPART_D2YFY_22.SYN.86C.453.64A.43S.MST.891.ANT.LRS.CLO.99H.RWD.44X.EBST.TDP.LESS.12A.13D.14L.14A.58A.2020 P8U FORD.]/EXT/1/vehicle.png']")))
+        try:
+            configure_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='margin-bot-30 margin-top-15']")))
+            configure_button.click()
+            print('\tconfigure button has been found and selected')
+        except:
+            print("\tconfigure button does not function correctly when automated")
+
+        convertible_image = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span//img[@class='img-responsive ng-isolate-scope']")))
         convertible_image.click()
-        print('\tconfigure button has been found and selected')
+        print('\tconvertible image button has been found and selected')
         return
 
 #Selecting all possible paint options in the paint type category (Test Case C01)
@@ -444,35 +436,55 @@ class ItemSelectorClass:
         print("\tall audio upgrade options have been selected")
         return
 
-#TODO element selector not working
 #Selecting the Summary button after Test Cases C01 - C05 have been completed
     def summary(self):
         time.sleep(1)
         summary_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//span//div[@aria-label='Show Summary']")))
-        #time.sleep(1)
         summary_button.click()
         print("\tsummary button has been selected")
 
-        '''summary_close = self.driver.find_element_by_xpath('/html/body/div[9]/div[8]/div[1]')
-        print("found close button")
-        action(self.driver).move_to_element(summary_close).click().perform()
-        print("close button has been selected")'''
+        time.sleep(2)
+        summary_close_button = self.driver.find_element_by_xpath("//div//div[@class='summary-modal-close ng-scope ng-isolate-scope']")
+        summary_close_button.click()
+        print("\tclose button has been selected")
+
+        time.sleep(1)
+        summary_button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//span//div[@aria-label='Show Summary']")))
+        summary_button.click()
+        print("\tsummary button has been selected")
+
+    def get_internet_price(self):
+        get_internet_price = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//span//span[@class='ng-binding']")))
+        get_internet_price.click()
+        print("\tget internet price button has been selected")
+
+        try:
+            get_internet_price_close = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@class='fd-golf-close-btn']")))
+            get_internet_price_close.click()
+            print("\tget internet price close button has been selected")
+        except:
+            print("\tcontact information window did not appear")
 
 #Selecting and closing out of 'Speacial Offers' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def special_offers(self):
+
         special_offers = wait(self.driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Special Offers')))
+       #special_offers = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[@class='btn-block ng-isolate-scope']")))
         time.sleep(1)
         special_offers.click()
         print("\tspecial offers has been selected")
 
         time.sleep(1)
 
-        special_offers_close = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".iframe-modal-close > .close-txt")))
+        #special_offers_close = wait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".iframe-modal-close > .close-txt")))
+        special_offers_close = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,"//div[@class='iframe-modal-close ng-isolate-scope']")))
         special_offers_close.click()
         print("\tspecial offers close button has been selected")
 
 #Selecting and closing out of 'Look Up Trade-In-Value' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def trade_in_value(self):
+
+        time.sleep(2)
         look_up_trade_in_value = wait(self.driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Look up Trade-In-Value')))
         look_up_trade_in_value.click()
         print("\tlook up trade-in-value has been selected")
@@ -485,6 +497,7 @@ class ItemSelectorClass:
 
 #Selecting 'Search Inventory' upon selecting the Summary button (TC D01.1) after Test Cases C01 - C05 have been completed
     def search_inventory(self):
+
         search_inventory = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "(//a[contains(text(),'Search Inventory')])[2]")))
         time.sleep(4)
         search_inventory.click()
@@ -918,12 +931,12 @@ class ItemSelectorClass:
         return
 
 #Selecting the "Get Internet Price" button on one of the matches on the Search Inventory page (TC G02)
-    def get_internet_price(self):
+    '''def get_internet_price(self):
         get_an_internet_price_button = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[1]/div/div/div/section/div/div/div[4]/div[1]/div[2]/div[1]/div/div/div[2]/button[1]')
         print("found get an internet price button")
         action(self.driver).move_to_element(get_an_internet_price_button).click().perform()
         print("get an internet price button has been selected")
-        return
+        return'''
 
 #Selecting the "Schedule a Test Drive" button on one of the matches on the Search Inventory page (TC G03)
     def schedule_test_drive(self):
