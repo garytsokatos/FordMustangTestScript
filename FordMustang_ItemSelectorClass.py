@@ -25,6 +25,9 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import random
 
+# seed here to make sure ints are as random as possible
+random.seed()
+
 #this will iterate through a dictionary by grabbing an xpath and clicking on the button, and it will print out the button that was selected:
 def dictionary_iterater_build_your_own(self, dictionary):
     try:
@@ -50,6 +53,41 @@ def dictionary_iterater_lufify(self, dictionary):
             button.click()
             time.sleep(2)
             print("\t" + dictionary[el][1] + " has been selected")
+
+    except Exception as err:
+        print(err)
+        return
+
+# this function selects a random item from a dictionary
+def dictionary_random_build_your_own(self, dictionary):
+    try:
+
+        # generate a random integer from 0 to the length of the dictionary minus 1
+        el = random.randint(0, len(dictionary) - 1)
+        button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH,  (dictionary[el][0]))))
+        time.sleep(1)
+        button.click()
+        time.sleep(2)
+        self.change_requirement()
+        self.zip_code_on_car_customization()
+        print("\t" + dictionary[el][1] + " has been selected")
+
+    except Exception as err:
+        print(err)
+        return
+
+
+# this function selects a random item from a dictionary
+def dictionary_random_lufify(self, dictionary):
+    try:
+
+        # generate a random integer from 0 to the length of the dictionary minus 1
+        el = random.randint(0, len(dictionary) - 1)
+        button = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, (dictionary[el][0]))))
+        time.sleep(1)
+        button.click()
+        time.sleep(2)
+        print("\t" + dictionary[el][1] + " has been selected")
 
     except Exception as err:
         print(err)
@@ -173,7 +211,7 @@ class ItemSelectorClass:
 
     def zip_code_on_car_customization(self):
         try:
-            zip_field_close = wait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//span[@class="icon-closer-blue-new pull-right"]')))
+            zip_field_close = wait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//span[@class="icon-closer-blue-new pull-right"]')))
             zip_field_close.click()
             print('\tzip code enter button has been found and selected')
         except:
@@ -211,7 +249,7 @@ class ItemSelectorClass:
             7: ("//div[contains(text(), 'Kona Blue')]",  'Kona Blue' ),
             8: ("//div[contains(text(), 'Twister Orange')]",  'Twister Orange' )
         }
-        dictionary_iterater_build_your_own(self, paint_selection)
+        dictionary_random_build_your_own(self, paint_selection)
         return
 
 #Selecting all possible tape stripe options in the paint type category (Test Case C01)
@@ -222,7 +260,7 @@ class ItemSelectorClass:
             2: ("//div[contains(text(), 'Less Tape Stripe')]", 'Less Tape Stripe'),
         }
         time.sleep(1)
-        dictionary_iterater_build_your_own(self, tape_stripe_selection)
+        dictionary_random_build_your_own(self, tape_stripe_selection)
         self.change_requirement()
         print("\t\tall tape stripes have been selected")
         return
@@ -233,7 +271,7 @@ class ItemSelectorClass:
             0:  ("//div[contains(text(), 'Ebony Racing Stripe')]", 'Ebony Tape Stripe'),
             1:  ("//div[contains(text(), 'Less Racing Stripe')]", 'Less Racing Stripe'),
         }
-        dictionary_iterater_build_your_own(self, racing_stripe_selection)
+        dictionary_random_build_your_own(self, racing_stripe_selection)
 
         print("\t\tall racing stripes have been selected")
         return
@@ -245,7 +283,7 @@ class ItemSelectorClass:
             1:  ("//div[contains(text(), 'Silver Hood Stripe')]", 'Silver Hood Stripe'),
             2:  ("//div[contains(text(), 'Ebony Hood Stripe')]", 'Ebony Hood Stripe')
         }
-        dictionary_iterater_build_your_own(self, hood_side_stripe_selection)
+        dictionary_random_build_your_own(self, hood_side_stripe_selection)
         self.change_requirement()
         print("\t\tall hood and side stripes have been selected")
         return
@@ -263,7 +301,7 @@ class ItemSelectorClass:
             0:  ("//span[contains(text(), '2.3L High Performance EcoBoost® Engine')]", '2.3L High Performance EcoBoost® Engine'),
             1:  ("//span[contains(text(), '2.3L EcoBoost® Engine')]", '2.3L EcoBoost® Engine')
         }
-        dictionary_iterater_build_your_own(self, engine_selection)
+        dictionary_random_build_your_own(self, engine_selection)
         self.change_requirement()
         return
 
@@ -273,7 +311,7 @@ class ItemSelectorClass:
             0: ("//span[contains(text(), '10-Speed SelectShift® Automatic Transmission')]", '10-Speed SelectShift® Automatic Transmission'),
             1: ("//span[contains(text(), '6-Speed Manual Transmission')]", '6-Speed Manual Transmission')
         }
-        dictionary_iterater_build_your_own(self, transmissions_selection)
+        dictionary_random_build_your_own(self, transmissions_selection)
         self.change_requirement()
         print("\tAll engines and transmissions have been selected")
         return
@@ -292,7 +330,7 @@ class ItemSelectorClass:
             0: ("//span[contains(text(), '101A Equipment Group')]", '101A Equipment Group'),
             1: ("//span[contains(text(), '100A Equipment Group')]", '100A Equipment Group')
         }
-        dictionary_iterater_build_your_own(self, equipment_group_selection)
+        dictionary_random_build_your_own(self, equipment_group_selection)
         self.change_requirement()
         return
 
@@ -304,7 +342,7 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), '2.3L High Performance Package')]", '2.3L High Performance Package'),
             2: ("//span[contains(text(), 'Wheel & Stripe Package')]", 'Wheel & Stripe Package')
         }
-        dictionary_iterater_build_your_own(self, exterior_package_selection)
+        dictionary_random_build_your_own(self, exterior_package_selection)
         self.change_requirement()
         return
 
@@ -338,7 +376,7 @@ class ItemSelectorClass:
             6: ("//span[contains(text(), '19-Inch x 9-Inch Luster Nickel-painted Forged Aluminum Wheels')]", '19-Inch x 9-Inch Luster Nickel-painted Forged Aluminum Wheels'),
             7: ("//span[contains(text(), '19-Inch x 9-Inch Machined-Face Aluminum Wheels with Low-Gloss Ebony Black-Painted Pockets')]", '19-Inch x 9-Inch Machined-Face Aluminum Wheels with Low-Gloss Ebony Black-Painted Pockets')
         }
-        dictionary_iterater_build_your_own(self, wheel_type_selection)
+        dictionary_random_build_your_own(self, wheel_type_selection)
 
         print("\tall wheel types have been selected")
         return
@@ -354,7 +392,7 @@ class ItemSelectorClass:
             5: ("//span[contains(text(), 'Rear Spoiler – Blade Decklid')]", 'Rear Spoiler – Blade Decklid'),
             6: ("//span[contains(text(), 'Remote Start System')]", 'Remote Start System'),
         }
-        dictionary_iterater_build_your_own(self, exterior_options_selection)
+        dictionary_random_build_your_own(self, exterior_options_selection)
         print("\tall exterior options have been selected")
         return
 
@@ -366,7 +404,7 @@ class ItemSelectorClass:
             2: ( "//span[contains(text(), '255/40R19 Summer-Only Tires')]", '255/40R19 Summer-Only Tires'),
             3: ( "//span[contains(text(), '255/40R19 W-Rated Tires')]", '255/40R19 W-Rated Tires')
         }
-        dictionary_iterater_build_your_own(self, tire_type_selection)
+        dictionary_random_build_your_own(self, tire_type_selection)
         print("\tall tire types have been selected")
         return
 
@@ -377,7 +415,7 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), '3.31 Limited Slip Rear Axle')]", '3.31 Limited Slip Rear Axle'),
             2: ("//span[contains(text(), '3.55 Limited Slip Rear Axle')]", '3.55 Limited Slip Rear Axle')
         }
-        dictionary_iterater_build_your_own(self, rear_axle_selection)
+        dictionary_random_build_your_own(self, rear_axle_selection)
         print("\tall tire types have been selected")
         return
 
@@ -408,7 +446,7 @@ class ItemSelectorClass:
             1: ("//span[contains(text(), 'Adaptive Cruise Control')]", 'Adaptive Cruise Control'),
             2: ("//span[contains(text(), 'Premium Floor Liners Front and Rear')]", 'Premium Floor Liners Front and Rear')
         }
-        dictionary_iterater_build_your_own(self, rear_axle_selection)
+        dictionary_random_build_your_own(self, rear_axle_selection)
         self.change_requirement()
         print("\tall interior options have been selected")
         return
@@ -419,7 +457,7 @@ class ItemSelectorClass:
             0: ("//span[contains(text(), 'AM/FM Stereo with MP3 Capability and Six (6) Speakers')]", 'AM/FM Stereo with MP3 Capability and Six (6) Speakers'),
             1: ("//span[contains(text(), 'Nine (9) Speaker Sound System with Amplifier')]", 'Nine (9) Speaker Sound System with Amplifier')
         }
-        dictionary_iterater_build_your_own(self, radio_selection)
+        dictionary_random_build_your_own(self, radio_selection)
         print("\tall radio types have been selected")
         return
 
@@ -431,7 +469,7 @@ class ItemSelectorClass:
             2: ("//span[contains(text(), 'SYNC® 3')]", '2SYNC® 3'),
             3: ("//span[contains(text(), 'Voice-Activated Touchscreen Navigation System with SiriusXM® Traffic and Travel Link')]", 'Voice-Activated Touchscreen Navigation System with SiriusXM® Traffic and Travel Link')
         }
-        dictionary_iterater_build_your_own(self, audio_upgrade_selection)
+        dictionary_random_build_your_own(self, audio_upgrade_selection)
 
         print("\tall audio upgrade options have been selected")
         return
@@ -527,7 +565,7 @@ class ItemSelectorClass:
             9: ("(//div[@role='checkbox'][@aria-label='Shelby GT500®'])", 'Shelby GT500®'),
             10: ("(//div[@role='checkbox'][@aria-label='Shelby® GT350R'])", 'Shelby® GT350R')
         }
-        dictionary_iterater_lufify(self, your_model_selection)
+        dictionary_random_lufify(self, your_model_selection)
         print("\t\tall models have been selected")
         return
 
@@ -552,7 +590,7 @@ class ItemSelectorClass:
             11: ("//div[contains(text(), 'Twister Orange')]", 'Twister Orange'),
             12: ("//div[contains(text(), 'Shadow Black')]", 'Shadow Black')
         }
-        dictionary_iterater_lufify(self, exterior_colors_selection)
+        dictionary_random_lufify(self, exterior_colors_selection)
         return
 
 #This is a list of all of the possible interior colors for the mustang. Program should loop through and select all of the options in the list
@@ -571,7 +609,7 @@ class ItemSelectorClass:
             6: ("//div[contains(text(), 'Ebony w/Smoke Gray Accents')]",  'Ebony w/Smoke Gray Accents'),
             7: ("//div[contains(text(), 'Ebony w/Red Accents')]",  'Ebony w/Red Accents')
         }
-        dictionary_iterater_lufify(self, interior_colors_selection)
+        dictionary_random_lufify(self, interior_colors_selection)
         return
 
 #This is a list of all of the possible preferences for the mustang. Program should loop through and select all of the options in the list
@@ -592,7 +630,7 @@ class ItemSelectorClass:
             7: ('//div[starts-with(@aria-label, "10-Speed SelectShift")]', '10-Speed SelectShift® Automatic Transmission'),
             8: ('//div[starts-with(@aria-label, "6-Speed Manual Transmission")]', '6-Speed Manual Transmission')
         }
-        dictionary_iterater_lufify(self, your_preferences_selection)
+        dictionary_random_lufify(self, your_preferences_selection)
         print("\t\tall preferences have been selected")
         return
 
@@ -610,7 +648,7 @@ class ItemSelectorClass:
             4: ("(//div[@role='checkbox'][@aria-label='2.3L High Performance Package'])", '2.3L High Performance Package'),
             5: ("(//div[@role='checkbox'][@aria-label='Black Accent Package'])", 'Black Accent Package')
         }
-        dictionary_iterater_lufify(self, optional_upgrades_selection)
+        dictionary_random_lufify(self, optional_upgrades_selection)
         print("\t\tall optional upgrades have been selected")
         return
 
@@ -829,7 +867,7 @@ class ItemSelectorClass:
             7: ("//ul[@aria-labelledby='filter-title-power-1']//span[@id='check-power-1']", 'Manual'),
             8: ("//ul[@aria-labelledby='filter-title-power-2']//span[@id='check-power-0']", 'Rear-Wheel Drive')
         }
-        dictionary_iterater_lufify(self, power_and_handling_select)
+        dictionary_random_lufify(self, power_and_handling_select)
         print("all power and handling selections have been selected")
         return
 
@@ -858,7 +896,7 @@ class ItemSelectorClass:
             14: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Twister Orange']", 'Twister Orange'),
             15: ("//ul[@aria-label='Exterior Color']//li[@data-popover='Velocity Blue']", 'Velocity Blue')
         }
-        dictionary_iterater_lufify(self, exterior_color_selection)
+        dictionary_random_lufify(self, exterior_color_selection)
         print("all exterior color selections have been selected")
         return
 
@@ -893,7 +931,7 @@ class ItemSelectorClass:
             20: ("//ul[@aria-labelledby='filter-title-interior-color-8']//li[@data-popover='Midnight Blue with Grabber Blue Stitch / Midnight Blue/Grabber Blue Stitch']",  'RECARO Premier Leather - Midnight Blue with Grabber Blue Stitch'),
             21: ("//ul[@aria-labelledby='filter-title-interior-color-8']//li[@data-popover='Showstopper Red']", 'RECARO Premier Leather - Showstopper Red')
         }
-        dictionary_iterater_lufify(self, interior_color_selection)
+        dictionary_random_lufify(self, interior_color_selection)
         print("all interior color selections have been selected")
         return
 
@@ -911,7 +949,7 @@ class ItemSelectorClass:
             3: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[3]/span/span[1]', '19.5" Wheels'),
             4: ('/html/body/div[3]/div/div[1]/div/div/div/section/div/div[1]/div/div[4]/div[1]/div[2]/div[7]/div/div/div/div[2]/div/fieldset/ul/li/ul/li[5]/span/span[1]', '20" Wheels'),
         }
-        dictionary_iterater_lufify(self, exterior_features_selection)
+        dictionary_random_lufify(self, exterior_features_selection)
         print("all exterior features selections have been selected")
         return
  #Selecting the "Let Us Find Your Vehicle" button at the bottom of the Search Inventory Page (TC F07)
