@@ -238,17 +238,17 @@ class ItemSelectorClass:
 
 #Selecting all possible paint options in the paint type category (Test Case C01)
     def paint_type(self):
-        paint_selection = {
-            0: ("//div[contains(text(), 'Grabber Lime')]", 'Grabber Lime'),
-            1: ("//div[contains(text(), 'Oxford White')]",  'Oxford White'),
-            2: ("//div[contains(text(), 'Velocity Blue')]", 'Velocity Blue'),
-            3: ("//div[contains(text(), 'Iconic Silver')]", 'Iconic Silver'),
-            4: ("//div[contains(text(), 'Magnetic')]", 'Magnetic'),
-            5: ("//div[contains(text(), 'Race Red')]",  'Race Red' ),
-            6: ("//div[contains(text(), 'Rapid Red')]",  'Rapid Red' ),
-            7: ("//div[contains(text(), 'Kona Blue')]",  'Kona Blue' ),
-            8: ("//div[contains(text(), 'Twister Orange')]",  'Twister Orange' )
-        }
+        paint_selection = (
+            ("//div[contains(text(), 'Grabber Lime')]", 'Grabber Lime'),
+            ("//div[contains(text(), 'Oxford White')]",  'Oxford White'),
+            ("//div[contains(text(), 'Velocity Blue')]", 'Velocity Blue'),
+            ("//div[contains(text(), 'Iconic Silver')]", 'Iconic Silver'),
+            ("//div[contains(text(), 'Magnetic')]", 'Magnetic'),
+            ("//div[contains(text(), 'Race Red')]",  'Race Red' ),
+            ("//div[contains(text(), 'Rapid Red')]",  'Rapid Red' ),
+            ("//div[contains(text(), 'Kona Blue')]",  'Kona Blue' ),
+            ("//div[contains(text(), 'Twister Orange')]",  'Twister Orange' )
+        )
         dictionary_random_build_your_own(self, paint_selection)
         return
 
